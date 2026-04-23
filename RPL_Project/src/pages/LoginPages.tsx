@@ -15,6 +15,7 @@ export default function LoginPages() {
       {/* Bagian Kiri: Area Visual (Cipratan cokelat dan brownies) */}
       <div className="login-visual">
         {/* Nantinya letakkan tag <img> untuk aset visual kiri di sini */}
+        <img src="./src/assets/lumer.png" alt="lumer" />
       </div>
 
       {/* Bagian Kanan: Form Registrasi/Login */}
@@ -22,7 +23,7 @@ export default function LoginPages() {
         <div className="header-wrapper">
           <h1 className="title">Halo,<br />Brownie!</h1>
           {/* Ganti div di bawah dengan tag <img> ilustrasi baker jika aset sudah dipotong */}
-          <div className="baker-illustration-placeholder">👩‍🍳</div> 
+          <img src="./src/assets/logo.png" alt="logo" />
         </div>
 
         <form onSubmit={handleSendOTP} className="form-container">
@@ -34,7 +35,7 @@ export default function LoginPages() {
             <input
               type="tel"
               className="phone-input"
-              placeholder="812-4547-2353"
+              placeholder="812-4547-2357"
               value={phoneNumber}
               onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))} // Hanya menerima angka
               required
