@@ -1,12 +1,13 @@
 *{
-  box-sizing: border-box;
+  
   margin: 0;
   padding: 0;
 }
 
 html, body, #root {
   width: 100%;
-  min-height: 100vh;
+  max-height: 100vh;
+  box-sizing: border-box;
   background-color: #FFF9F0; /* Menyamakan dengan background kiri */
 }
 
@@ -22,6 +23,8 @@ html, body, #root {
   flex: 1;
   background-color: #FFF9F0; /* Warna krem terang */
   /* Tambahkan background-image url() aset brownies di sini nanti */
+  background-image: url('./../src/assets/brownies.png'); /* Ganti dengan path aset yang benar */
+  background-size: cover;
 }
 
 /* Bagian Kanan (Form) */
@@ -39,8 +42,13 @@ html, body, #root {
 .header-wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 50px;
+  align-items: center; /* <--- Ubah bagian ini dari flex-start menjadi center */
+  margin-bottom: 40px; /* Atau berapapun angka yang Anda gunakan saat ini */
+  margin-top: -30px;   /* Pertahankan jika Anda menggunakan cara 1 sebelumnya */
+}
+.logo {
+  width: 280px; /* Sesuaikan ukuran logo */
+  height: auto;
 }
 
 .title {
@@ -49,14 +57,12 @@ html, body, #root {
   font-size: 48px;
   line-height: 1.1;
   margin: 0;
-  font-weight: 800;
-  align-items: center;
+  font-weight: 900;
+  align-items: start;
 
 }
 
-.baker-illustration-placeholder {
-  font-size: 80px;
-}
+
 
 /* Form Styling */
 .form-container {

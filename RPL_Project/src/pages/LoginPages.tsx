@@ -15,15 +15,15 @@ export default function LoginPages() {
       {/* Bagian Kiri: Area Visual (Cipratan cokelat dan brownies) */}
       <div className="login-visual">
         {/* Nantinya letakkan tag <img> untuk aset visual kiri di sini */}
-        <img src="./src/assets/lumer.png" alt="lumer" />
+        
       </div>
 
       {/* Bagian Kanan: Form Registrasi/Login */}
       <div className="login-form-section">
         <div className="header-wrapper">
           <h1 className="title">Halo,<br />Brownie!</h1>
-          {/* Ganti div di bawah dengan tag <img> ilustrasi baker jika aset sudah dipotong */}
-          <img src="./src/assets/logo.png" alt="logo" />
+
+          <img className="logo" src="./src/assets/logo.png" alt="logo" />
         </div>
 
         <form onSubmit={handleSendOTP} className="form-container">
