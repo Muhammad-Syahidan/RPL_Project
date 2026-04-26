@@ -1,0 +1,230 @@
+/* Layout Utama */
+.checkout-container {
+  position: relative;
+  min-height: 100vh;
+  background-color: #FFF9F0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #5D3E29;
+  overflow-x: hidden;
+}
+
+/* Dekorasi Pojok Kanan Atas */
+.bg-blob {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  width: 400px;
+  height: 400px;
+  background-color: #B58A67; /* Placeholder warna blob */
+  border-radius: 50%;
+  opacity: 0.8;
+  pointer-events: none;
+  /* Anda bisa mengganti ini dengan image pattern sesuai mockup */
+}
+
+/* Konten Utama */
+.checkout-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+/* Tombol Kembali */
+.back-btn {
+  background-color: #ED7D31;
+  color: #FFF;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 30px;
+  transition: transform 0.2s;
+}
+
+.back-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Ringkasan Produk */
+.product-summary {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.product-img-box {
+  width: 200px;
+  height: 200px;
+  background-color: #E8D5C4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.product-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  flex: 1;
+}
+
+.product-title {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 10px;
+  line-height: 1.2;
+}
+
+.product-qty {
+  position: absolute;
+  right: 0;
+  top: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.product-price {
+  color: #ED7D31;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* Form Checkout */
+.checkout-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 12px;
+  display: block;
+}
+
+/* Input Styles */
+.input-box {
+  width: 100%;
+  border: 2px solid #ED7D31;
+  border-radius: 25px;
+  padding: 12px 20px;
+  background-color: transparent;
+  color: #5D3E29;
+  font-size: 16px;
+  font-weight: 500;
+  outline: none;
+}
+
+.textarea-box {
+  border-radius: 20px;
+  display: flex;
+  align-items: flex-start;
+  padding: 15px 20px;
+}
+
+.textarea-box textarea {
+  flex: 1;
+  background: transparent;
+  border: none;
+  resize: none;
+  outline: none;
+  color: #5D3E29;
+  font-family: inherit;
+  font-size: 15px;
+  height: 60px;
+}
+
+.edit-icon {
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+/* Grid Pilhan (Topping, Pembayaran) */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.option-pill {
+  border: 2px solid #ED7D31;
+  border-radius: 25px;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.option-pill:hover {
+  background-color: rgba(237, 125, 49, 0.05);
+}
+
+.option-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Kotak Ceklis & Radio Buatan Sendiri */
+.check-box, .radio-box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #5D3E29;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.check-box {
+  border-radius: 4px; /* Kotak */
+}
+
+.radio-box {
+  border-radius: 50%; /* Bulat */
+}
+
+.radio-box.active {
+  background-color: #ED7D31;
+  border-color: #ED7D31;
+  color: white;
+}
+
+/* Tombol Pesan */
+.submit-section {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.btn-pesan {
+  background-color: #ED7D31;
+  color: #5D3E29;
+  border: none;
+  border-radius: 25px;
+  padding: 15px 60px;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.btn-pesan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
