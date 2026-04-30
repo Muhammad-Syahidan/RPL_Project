@@ -1,0 +1,186 @@
+/* Container Utama */
+.admin-menu-container {
+  position: relative;
+  min-height: 100vh;
+  background-color: #FFF9F0;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #5D3E29;
+}
+
+/* Latar Belakang Pola */
+.bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15;
+  pointer-events: none;
+}
+
+.decor-cookie-bottom {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  width: 300px;
+  height: 300px;
+  background-color: #D4A373; /* Placeholder warna cookie */
+  border-top-left-radius: 50%;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+/* Pembungkus Konten */
+.admin-menu-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.admin-menu-title {
+  font-size: 56px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Kategori Navigasi */
+.category-filter {
+  display: flex;
+  gap: 30px;
+  border: 2px solid #ED7D31;
+  border-radius: 40px;
+  padding: 15px 40px;
+  margin-bottom: 50px;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.category-btn {
+  background: none;
+  border: none;
+  color: #5D3E29;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.category-btn.active {
+  /* Jika butuh styling khusus untuk menu yang sedang aktif dipilih */
+  color: #5D3E29; 
+}
+
+/* Grid Layout */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+}
+
+/* Kartu Produk */
+.product-card {
+  border: 3px solid #ED7D31;
+  border-radius: 20px;
+  padding: 15px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.product-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: #F4EAE0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #A68A78;
+  font-size: 14px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.text-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.product-name {
+  background-color: #F8CBA6;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.product-price {
+  font-weight: 600;
+  padding-left: 2px;
+}
+
+/* Tombol Edit (Khusus Admin) */
+.edit-btn {
+  background-color: #ED7D31;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  transition: transform 0.2s, background-color 0.2s;
+}
+
+.edit-btn:hover {
+  transform: scale(1.1);
+  background-color: #D96A25; /* Warna oranye sedikit lebih gelap saat di-hover */
+}
+
+/* Tombol Aksi Bawah (Kembali & Tambah) */
+.bottom-actions {
+  display: flex;
+  gap: 30px;
+  margin-top: 60px;
+  width: 100%;
+  justify-content: center;
+}
+
+.action-btn {
+  background-color: #ED7D31;
+  color: #5D3E29;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 250px; /* Menyamakan lebar kedua tombol */
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
