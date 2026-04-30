@@ -177,7 +177,7 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 250px; /* Menyamakan lebar kedua tombol */
+  width: 250px; /* Lebar tetap untuk konsistensi */
 }
 
 .action-btn:hover {
