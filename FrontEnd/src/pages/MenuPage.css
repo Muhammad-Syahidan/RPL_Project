@@ -1,0 +1,165 @@
+/* Container Utama */
+.menu-container {
+  position: relative;
+  min-height: 100vh;
+  background-color: #FFF9F0;
+  overflow-x: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #5D3E29;
+}
+
+/* Latar Belakang Pola Baker */
+.bg-pattern {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.15; /* Mengatur transparansi pola agar teks tetap terbaca */
+  pointer-events: none; /* Agar klik tembus ke tombol di bawahnya */
+  /* Tambahkan URL aset background pattern Anda di sini nanti */
+  /* background-image: url('../assets/baker-pattern.png'); */
+  /* background-repeat: repeat; */
+}
+
+/* Pembungkus Konten */
+.menu-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.menu-title {
+  font-size: 56px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+/* Kategori Navigasi */
+.category-filter {
+  display: flex;
+  gap: 30px;
+  border: 2px solid #ED7D31;
+  border-radius: 40px;
+  padding: 15px 40px;
+  margin-bottom: 50px;
+  background-color: rgba(255, 255, 255, 0.5); /* Sedikit tembus pandang */
+}
+
+.category-btn {
+  background: none;
+  border: none;
+  color: #5D3E29;
+  font-size: 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Grid Layout untuk Produk */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+  gap: 40px;
+  width: 100%;
+}
+
+/* Kartu Produk */
+.product-card {
+  border: 3px solid #ED7D31;
+  border-radius: 20px;
+  padding: 15px;
+  background-color: #FFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.product-image-placeholder {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Membuat gambar selalu persegi */
+  background-color: #F4EAE0;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #A68A78;
+  font-size: 14px;
+  margin-bottom: 15px;
+  overflow: hidden;
+}
+
+.product-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.text-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.product-name {
+  background-color: #F8CBA6; /* Highlight oranye muda di belakang nama kue */
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.product-price {
+  font-weight: 600;
+  padding-left: 2px;
+}
+
+/* Tombol Plus (+) */
+.add-btn {
+  background: none;
+  border: none;
+  color: #5D3E29;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+}
+
+.add-btn:hover {
+  transform: scale(1.1);
+  color: #ED7D31;
+}
+
+/* Tombol Aksi Bawah (Kembali & WhatsApp) */
+.bottom-actions {
+  display: flex;
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.action-btn {
+  background-color: #ED7D31;
+  color: #5D3E29;
+  border: none;
+  border-radius: 30px;
+  padding: 15px 50px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.action-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}

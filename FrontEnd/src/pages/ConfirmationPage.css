@@ -1,0 +1,95 @@
+/* Layout Utama */
+.confirmation-container {
+  position: relative;
+  min-height: 100vh;
+  background-color: #FFF9F0; /* Warna krem khas Shan's Cake */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #5D3E29; /* Warna teks cokelat tua */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Mencegah scroll bar jika gambar dekorasi sedikit keluar batas */
+}
+
+/* Dekorasi Visual - Lelehan Cokelat Kiri Atas */
+.decor-choco-drip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 250px;
+  background-color: #3F291D; /* Placeholder warna cokelat gelap */
+  border-bottom-right-radius: 50%;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  /* Tambahkan background-image: url(...) di sini nanti */
+}
+
+/* Dekorasi Visual - Cookie Kanan Bawah */
+.decor-cookie {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 250px;
+  height: 250px;
+  background-color: #D4A373; /* Placeholder warna cookie */
+  border-top-left-radius: 50%;
+  opacity: 0.8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  /* Tambahkan background-image: url(...) di sini nanti */
+}
+
+.placeholder-text {
+  font-size: 14px;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Konten Teks & Tombol */
+.confirmation-content {
+  position: relative;
+  z-index: 1; /* Memastikan teks dan tombol selalu berada di atas gambar dekorasi */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px; /* Jarak antar teks dan tombol */
+}
+
+.title-thanks {
+  font-size: 36px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+.subtitle-process {
+  font-size: 26px;
+  font-weight: 700;
+  margin: 0 0 25px 0; /* Memberi jarak lebih ke arah tombol di bawahnya */
+}
+
+/* Tombol Cek Pesanan */
+.btn-cek-pesanan {
+  background-color: #ED7D31; /* Warna oranye */
+  color: #5D3E29; /* Teks warna cokelat tua sesuai mockup */
+  border: none;
+  border-radius: 25px; /* Bentuk kapsul */
+  padding: 12px 40px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-cek-pesanan:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}

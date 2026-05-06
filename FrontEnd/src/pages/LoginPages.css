@@ -1,0 +1,173 @@
+*{
+  
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  max-height: 100vh;
+  box-sizing: border-box;
+  background-color: #FFF9F0; /* Menyamakan dengan background kiri */
+}
+
+/* Reset dasar untuk halaman ini */
+.login-container {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ganti dengan font yang Anda pakai */
+}
+
+/* Bagian Kiri (Placeholder untuk gambar) */
+.login-visual {
+  flex: 1;
+  background-color: #FFF9F0; /* Warna krem terang */
+  /* Tambahkan background-image url() aset brownies di sini nanti */
+  background-image: url('./../src/assets/brownies.png'); /* Ganti dengan path aset yang benar */
+  background-size: cover;
+}
+
+/* Bagian Kanan (Form) */
+.login-form-section {
+  flex: 1;
+  background-color: #FFF3E0; /* Sesuai warna background mockup kanan */
+  padding: 60px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* <--- Ubah bagian ini dari flex-start menjadi center */
+  margin-bottom: 40px; /* Atau berapapun angka yang Anda gunakan saat ini */
+  margin-top: -30px;   /* Pertahankan jika Anda menggunakan cara 1 sebelumnya */
+}
+.logo {
+  width: 280px; /* Sesuaikan ukuran logo */
+  height: auto;
+}
+
+.title {
+  text-align: center;
+  color: #5D3E29; /* Warna cokelat teks */
+  font-size: 48px;
+  line-height: 1.1;
+  margin: 0;
+  font-weight: 900;
+  align-items: start;
+
+}
+
+
+
+/* Form Styling */
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Memposisikan elemen di tengah secara horizontal */
+}
+
+.input-label {
+  color: #5D3E29;
+  font-weight: 600;
+  margin-bottom: 12px;
+  align-self: flex-start; /* Mengembalikan label ke kiri */
+  margin-left: 10%; /* Menyesuaikan agar sejajar dengan input */
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background-color: #ED7D31; /* Oranye khas mockup */
+  border-radius: 12px;
+  padding: 12px 20px;
+  width: 80%;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.flag-icon {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.country-code {
+  color: #FFF;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.phone-input {
+  background: transparent;
+  border: none;
+  color: #5D3E29;
+  font-size: 16px;
+  font-weight: 600;
+  outline: none;
+  flex: 1;
+}
+
+.phone-input::placeholder {
+  color: rgba(93, 62, 41, 0.6);
+}
+
+.btn-submit {
+  background-color: #ED7D31;
+  color: #5D3E29;
+  border: none;
+  border-radius: 25px;
+  padding: 14px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+}
+
+/* Social Login Styling */
+.social-login-section {
+  margin-top: 60px;
+  text-align: center;
+}
+
+.social-text {
+  color: #5D3E29;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.text-orange {
+  color: #ED7D31;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.icon-circle {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: none;
+  background-color: #FFF;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.icon-circle.x {
+  background-color: #000;
+  color: #FFF;
+}
