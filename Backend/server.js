@@ -1,15 +1,19 @@
-require('dotenv').config(); // Tambahkan ini di paling atas
+require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const db = require('./config/db'); 
 
-// Memanggil koneksi database
-require('./config/db'); // <-- Tambahkan baris ini
+// Import Model
+const { createUserTable } = require('./models/User'); // <-- Tambahkan ini
 
 const app = express();
 const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+// Jalankan pembuatan tabel
+createUserTable(); // <-- Dan panggil fungsinya di sini
 
 app.get('/api/test', (req, res) => {
   res.json({ message: "Halo! Server backend Shan's Cake sudah berhasil berjalan!" });
