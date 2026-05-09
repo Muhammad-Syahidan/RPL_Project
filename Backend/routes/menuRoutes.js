@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { getAllMenus } = require('../controllers/menuController');
+// Import kedua fungsinya
+const { getAllMenus, createMenu } = require('../controllers/menuController');
 
-// Membuat URL: GET /api/menus
-router.get('/', getAllMenus);
+router.get('/', getAllMenus);     // Untuk dilihat pelanggan
+router.post('/', createMenu);     // Untuk diinput oleh Admin
 
 module.exports = router;
