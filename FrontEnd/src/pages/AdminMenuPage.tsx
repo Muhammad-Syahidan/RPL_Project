@@ -1,69 +1,117 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
+import './AdminMenuPage.css'; // Memanggil file desain Anda
 
-function AdminMenu() {
-  // State untuk menyimpan ketikan admin di form
+function AdminMenuPage() {
   const [formData, setFormData] = useState({
     name: '',
-    description: '',
     price: '',
-    image_url: ''
+    image_file: null as File | null // Mengakomodasi file foto
   });
 
-  // Mengatur perubahan teks saat admin mengetik
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Fungsi saat tombol "Simpan Kue" diklik
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault(); // Mencegah halaman refresh
-    try {
-      const response = await axios.post('http://localhost:5000/api/menus', formData);
-      alert("Sukses: " + response.data.message);
-      
-      // Kosongkan form setelah berhasil
-      setFormData({ name: '', description: '', price: '', image_url: '' });
-    } catch (error) {
-      console.error("Gagal menambah menu:", error);
-      alert("Terjadi kesalahan saat menyimpan data.");
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFormData({ ...formData, image_file: e.target.files[0] });
     }
   };
 
-  // CSS sederhana menggunakan Flexbox agar tampilan rapi di tengah
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    // 1. Siapkan "Kotak Paket" khusus
+    const submitData = new FormData();
+    submitData.append('name', formData.name);
+    submitData.append('price', formData.price);
+    submitData.append('description', ''); // Sesuai desain, kita kosongkan dulu
+
+    // 2. Masukkan file foto ke dalam paket jika ada
+    if (formData.image_file) {
+      submitData.append('image_file', formData.image_file);
+    }
+
+    try {
+      // 3. Kirim paket dengan stempel khusus (multipart/form-data)
+      const response = await axios.post('http://localhost:5000/api/menus', submitData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      alert("Sukses: " + response.data.message);
+      
+      // Kosongkan form kembali setelah berhasil
+      setFormData({ name: '', price: '', image_file: null });
+      
+    } catch (error) {
+      console.error("Gagal menambah menu:", error);
+      alert("Terjadi kesalahan saat menyimpan data ke database.");
+    }
+  };
+
   return (
-    <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px', fontFamily: 'sans-serif' }}>
-      <div style={{ width: '400px', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', boxShadow: '0 4px 8px rgba(0,0,0,0.1)' }}>
-        <h2 style={{ textAlign: 'center', color: '#333' }}>Dashboard Admin - Tambah Menu</h2>
+    <div className="admin-container">
+      <h1 className="admin-title">Shan's Tambah</h1>
+      
+      <form className="admin-form" onSubmit={handleSubmit}>
         
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
-          <div>
-            <label>Nama Kue:</label>
-            <input type="text" name="name" value={formData.name} onChange={handleChange} required style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
+        <div className="input-group">
+          <label>Nama :</label>
+          <input 
+            type="text" 
+            name="name" 
+            className="custom-input" 
+            placeholder="..." 
+            value={formData.name} 
+            onChange={handleChange} 
+            required 
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Harga :</label>
+          <input 
+            type="number" 
+            name="price" 
+            className="custom-input" 
+            placeholder="..." 
+            value={formData.price} 
+            onChange={handleChange} 
+            required 
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Tambah Foto :</label>
+          <div className="file-upload-wrapper">
+            <span>Upload foto &uarr;</span>
+            <input 
+              type="file" 
+              name="image_file" 
+              accept="image/*"
+              onChange={handleFileChange} 
+            />
           </div>
-          
-          <div>
-            <label>Deskripsi Singkat:</label>
-            <textarea name="description" value={formData.description} onChange={handleChange} rows={3} style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
-          </div>
-          
-          <div>
-            <label>Harga (Rp):</label>
-            <input type="number" name="price" value={formData.price} onChange={handleChange} required style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
-          </div>
-          
-          <div>
-            <label>Link Gambar URL:</label>
-            <input type="text" name="image_url" value={formData.image_url} onChange={handleChange} placeholder="https://..." style={{ width: '100%', padding: '8px', marginTop: '5px' }} />
-          </div>
-          
-          <button type="submit" style={{ padding: '10px', backgroundColor: '#e67e22', color: 'white', border: 'none', borderRadius: '5px', cursor: 'pointer', fontWeight: 'bold' }}>
-            Simpan Kue ke Database
+        </div>
+
+        <div className="button-group">
+          <button type="button" className="btn-action">
+            &larr; Kembali
           </button>
-        </form>
-      </div>
+          <button type="submit" className="btn-action">
+            Selesai
+          </button>
+        </div>
+
+      </form>
+
+      {/* Gambar cookie pojok kanan bawah. Pastikan Anda punya gambar cookies.png di folder public */}
+      <img src="/cookies.png" alt="Cookies" className="cookie-decoration" />
     </div>
   );
 }
 
-export default AdminMenu;
+export default AdminMenuPage;

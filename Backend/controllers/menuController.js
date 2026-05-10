@@ -13,13 +13,16 @@ const getAllMenus = async (req, res) => {
 
 // Fungsi BARU: Menambahkan menu dari halaman Admin
 const createMenu = async (req, res) => {
-  const { name, description, price, image_url } = req.body;
+  const { name, description, price } = req.body;
+  
+  // Jika ada file yang diupload, buatkan URL-nya. Jika tidak, kosongkan.
+  const image_url = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : '';
 
   try {
     const query = 'INSERT INTO menus (name, description, price, image_url) VALUES (?, ?, ?, ?)';
-    await db.query(query, [name, description, price, image_url]);
+    await db.query(query, [name, description || '', price, image_url]);
     
-    res.status(201).json({ message: 'Menu kue baru berhasil ditambahkan ke katalog!' });
+    res.status(201).json({ message: 'Menu kue baru beserta foto berhasil ditambahkan!' });
   } catch (error) {
     console.error('Error saat tambah menu:', error.message);
     res.status(500).json({ message: 'Gagal menyimpan menu ke database.' });

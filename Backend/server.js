@@ -14,6 +14,7 @@ const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
+app.use('/uploads', express.static('uploads')); // <-- Tambahkan baris ini
 
 createUserTable();
 createMenuTable(); // <-- 2. Panggil fungsinya di sini
