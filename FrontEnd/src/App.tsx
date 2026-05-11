@@ -1,9 +1,8 @@
-import AdminMenuPage from './pages/AdminMenuPage';
-
+import MenuPage from './pages/MenuPage';
 function App() {
   return (
     <div>
-      <AdminMenuPage />
+      <MenuPage />
     </div>
   );
 }
