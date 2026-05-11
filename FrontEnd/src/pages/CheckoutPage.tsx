@@ -1,12 +1,21 @@
 import { useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom'; // Tambahkan useLocation
 import './CheckoutPage.css';
 
 export default function CheckoutPage() {
-  // State untuk interaktivitas form
+  const navigate = useNavigate();
+  const location = useLocation(); // Mengambil data yang dibawa dari halaman Menu
+
+  // Menangkap data produk. Jika tidak ada (misal langsung buka link checkout), beri data default.
+  const produkTerpilih = location.state?.produk || {
+    name: 'Kue Belum Dipilih',
+    price: 0,
+    image_url: ''
+  };
+
   const [nama, setNama] = useState('Windah');
   const [alamat, setAlamat] = useState('Jl. Mahakam No. 45, RT 012/RW 003, Kelurahan Pelabuhan, Kecamatan Samarinda Kota, Kota Samarinda, Kalimantan Timur, 75112.');
   
-  // State untuk Topping (Bisa pilih lebih dari satu)
   const [toppings, setToppings] = useState({
     oreo: true,
     chocoChips: false,
@@ -14,7 +23,6 @@ export default function CheckoutPage() {
     request: false,
   });
 
-  // State untuk Pengiriman & Pembayaran (Hanya bisa pilih satu)
   const [pengiriman, setPengiriman] = useState('ambil');
   const [pembayaran, setPembayaran] = useState('transfer');
 
@@ -22,48 +30,74 @@ export default function CheckoutPage() {
     setToppings({ ...toppings, [key]: !toppings[key] });
   };
 
+  const handlePesan = () => {
+    // 1. Hitung Total Harga Menggunakan Harga Asli Produk
+    let basePrice = produkTerpilih.price; 
+    let selectedToppings = [];
+
+    if (toppings.oreo) { basePrice += 2000; selectedToppings.push('Oreo'); }
+    if (toppings.chocoChips) { basePrice += 2000; selectedToppings.push('Choco Chips'); }
+    if (toppings.doubleChoco) { basePrice += 3000; selectedToppings.push('Double Chocolate'); }
+    if (toppings.request) { selectedToppings.push('Request Khusus'); }
+
+    // 2. Susun Format Pesan
+    const textPesan = `Halo Shan's Cake! Saya ingin memesan:
+
+📦 *Detail Pesanan:*
+- Produk: ${produkTerpilih.name} (x1)
+- Topping: ${selectedToppings.length > 0 ? selectedToppings.join(', ') : 'Original/Tanpa Topping'}
+- *Total Harga: Rp ${basePrice.toLocaleString('id-ID')}*
+
+👤 *Data Pemesan:*
+- Nama: ${nama}
+- Pengiriman: ${pengiriman === 'ambil' ? 'Ambil Sendiri' : 'Kurir'}
+- Pembayaran: ${pembayaran === 'transfer' ? 'Transfer Bank' : 'Tunai (COD)'}
+- Alamat: ${alamat}
+
+Apakah pesanan saya bisa segera diproses?`;
+
+    // 3. Arahkan ke WhatsApp
+    const nomorWA = "6281234567890";
+    const urlWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(textPesan)}`;
+    window.open(urlWA, '_blank');
+  };
+
   return (
     <div className="checkout-container">
-      {/* Dekorasi Sudut Kanan Atas */}
       <div className="bg-blob"></div>
 
       <div className="checkout-content">
-        {/* Tombol Kembali */}
-        <button className="back-btn">
+        <button className="back-btn" onClick={() => navigate(-1)}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <line x1="19" y1="12" x2="5" y2="12"></line>
             <polyline points="12 19 5 12 12 5"></polyline>
           </svg>
         </button>
 
-        {/* Ringkasan Produk */}
+        {/* Ringkasan Produk Dinamis */}
         <div className="product-summary">
-          <div className="product-img-box">
-            {/* Ganti div ini dengan <img> jika aset sudah ada */}
-            <span className="img-placeholder">Gambar Brownies</span>
+          <div className="product-img-box" style={{ overflow: 'hidden', padding: 0 }}>
+            {produkTerpilih.image_url ? (
+              <img src={produkTerpilih.image_url} alt={produkTerpilih.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <span className="img-placeholder">Tanpa Foto</span>
+            )}
           </div>
           <div className="product-details">
-            <h1 className="product-title">Fudgy Brownies Box - XL<br/>(20x20)</h1>
+            {/* Nama dan harga kue otomatis berubah sesuai yang di-klik */}
+            <h1 className="product-title" style={{ fontSize: '1.2rem' }}>{produkTerpilih.name}</h1>
             <span className="product-qty">x1</span>
-            <p className="product-price">Rp 82.000</p>
+            <p className="product-price">Rp {produkTerpilih.price.toLocaleString('id-ID')}</p>
           </div>
         </div>
 
-        {/* Form Checkout */}
+        {/* Form Checkout (Sisa kode ke bawah tidak ada yang berubah) */}
         <div className="checkout-form">
-          
-          {/* Nama Pemesan */}
           <div className="form-group">
             <label>Nama Pemesan :</label>
-            <input 
-              type="text" 
-              className="input-box" 
-              value={nama} 
-              onChange={(e) => setNama(e.target.value)} 
-            />
+            <input type="text" className="input-box" value={nama} onChange={(e) => setNama(e.target.value)} />
           </div>
 
-          {/* Add Toppings */}
           <div className="form-group">
             <label>Add Toppings :</label>
             <div className="options-grid">
@@ -97,22 +131,13 @@ export default function CheckoutPage() {
             </div>
           </div>
 
-          {/* Alamat */}
           <div className="form-group">
             <label>Alamat :</label>
             <div className="input-box textarea-box">
-              <textarea 
-                value={alamat} 
-                onChange={(e) => setAlamat(e.target.value)}
-              />
-              <svg className="edit-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
-              </svg>
+              <textarea value={alamat} onChange={(e) => setAlamat(e.target.value)} />
             </div>
           </div>
 
-          {/* Opsi Pengiriman */}
           <div className="form-group">
             <label>Opsi Pengiriman :</label>
             <div className="options-grid">
@@ -124,38 +149,29 @@ export default function CheckoutPage() {
                 <span>2. Ambil Sendiri</span>
                 <div className="option-right">
                   <span>Rp 0</span>
-                  <div className={`radio-box ${pengiriman === 'ambil' ? 'active' : ''}`}>
-                    {pengiriman === 'ambil' && '✓'}
-                  </div>
+                  <div className={`radio-box ${pengiriman === 'ambil' ? 'active' : ''}`}>{pengiriman === 'ambil' && '✓'}</div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Metode Pembayaran */}
           <div className="form-group">
             <label>Metode Pembayaran :</label>
             <div className="options-grid">
               <div className="option-pill" onClick={() => setPembayaran('tunai')}>
                 <span>1. Tunai</span>
-                <div className={`radio-box ${pembayaran === 'tunai' ? 'active' : ''}`}>
-                  {pembayaran === 'tunai' && '✓'}
-                </div>
+                <div className={`radio-box ${pembayaran === 'tunai' ? 'active' : ''}`}>{pembayaran === 'tunai' && '✓'}</div>
               </div>
               <div className="option-pill" onClick={() => setPembayaran('transfer')}>
                 <span>2. Transfer</span>
-                <div className={`radio-box ${pembayaran === 'transfer' ? 'active' : ''}`}>
-                  {pembayaran === 'transfer' && '✓'}
-                </div>
+                <div className={`radio-box ${pembayaran === 'transfer' ? 'active' : ''}`}>{pembayaran === 'transfer' && '✓'}</div>
               </div>
             </div>
           </div>
 
-          {/* Tombol Pesan */}
           <div className="submit-section">
-            <button className="btn-pesan">Pesan</button>
+            <button className="btn-pesan" onClick={handlePesan}>Pesan</button>
           </div>
-
         </div>
       </div>
     </div>
