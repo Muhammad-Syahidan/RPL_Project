@@ -1,28 +1,68 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate untuk pindah halaman
+import axios from 'axios'; // 2. Import axios untuk kirim data ke backend
 import './LoginPages.css';
 
 export default function LoginPages() {
   const [phoneNumber, setPhoneNumber] = useState('');
+  const navigate = useNavigate(); // Inisialisasi navigasi
 
-  const handleSendOTP = (e: React.FormEvent) => {
+  // Fungsi Login menggunakan Nomor HP
+  const handleSendOTP = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Logika untuk mengirim OTP (misal memanggil API backend Shan's Cake)
-    console.log('Mengirim OTP ke nomor: +62', phoneNumber);
+    
+    // Menggabungkan kode negara dengan nomor yang diketik
+    const fullPhoneNumber = `+62${phoneNumber}`;
+    
+    try {
+      // Karena kita belum memasang API OTP asli (seperti Firebase SMS),
+      // kita mengirim data ini langsung ke backend MySQL sebagai registrasi/login
+      const response = await axios.post('http://localhost:5000/api/auth/login', {
+        name: `User ${phoneNumber}`, // Nama sementara
+        phone_number: fullPhoneNumber,
+        email: `${phoneNumber}@pelanggan.com` // Email sementara agar database tidak error
+      });
+
+      alert("OTP Berhasil Diverifikasi! " + response.data.message);
+      
+      // Jika berhasil login, langsung arahkan ke halaman utama (Landing Page)
+      navigate('/');
+    } catch (error) {
+      console.error("Gagal login:", error);
+      alert("Terjadi kesalahan saat mencoba terhubung ke server.");
+    }
+  };
+
+  // Fungsi Login menggunakan Sosial Media (Google, Facebook, dll)
+  const handleSocialLogin = async (platform: string) => {
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/login', {
+        name: `Pengguna ${platform}`,
+        email: `user@${platform.toLowerCase()}.com`,
+        google_id: platform === 'Google' ? `google_${Date.now()}` : null, // ID unik pura-pura
+      });
+
+      alert(`Berhasil login menggunakan ${platform}! Pesan server: ${response.data.message}`);
+      
+      // Langsung arahkan ke halaman utama
+      navigate('/');
+    } catch (error) {
+      console.error(`Gagal login dengan ${platform}:`, error);
+      alert("Terjadi kesalahan saat mencoba login sosial media.");
+    }
   };
 
   return (
     <div className="login-container">
-      {/* Bagian Kiri: Area Visual (Cipratan cokelat dan brownies) */}
+      {/* Bagian Kiri: Area Visual */}
       <div className="login-visual">
         {/* Nantinya letakkan tag <img> untuk aset visual kiri di sini */}
-        
       </div>
 
       {/* Bagian Kanan: Form Registrasi/Login */}
       <div className="login-form-section">
         <div className="header-wrapper">
           <h1 className="title">Halo,<br />Brownie!</h1>
-
           <img className="logo" src="./src/assets/logo.png" alt="logo" />
         </div>
 
@@ -50,10 +90,10 @@ export default function LoginPages() {
         <div className="social-login-section">
           <p className="social-text">Atau login <span className="text-orange">menggunakan</span></p>
           <div className="social-icons">
-            {/* Ganti dengan ikon SVG yang sebenarnya */}
-            <button className="icon-circle google">G</button>
-            <button className="icon-circle fb">f</button>
-            <button className="icon-circle x">𝕏</button>
+            {/* Menambahkan onClick pada masing-masing tombol sosial media */}
+            <button className="icon-circle google" onClick={() => handleSocialLogin('Google')}>G</button>
+            <button className="icon-circle fb" onClick={() => handleSocialLogin('Facebook')}>f</button>
+            <button className="icon-circle x" onClick={() => handleSocialLogin('X')}>𝕏</button>
           </div>
         </div>
       </div>
