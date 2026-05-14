@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom'; // Tambahkan useLocation
 import './CheckoutPage.css';
@@ -30,22 +31,36 @@ export default function CheckoutPage() {
     setToppings({ ...toppings, [key]: !toppings[key] });
   };
 
-  const handlePesan = () => {
-    // 1. Hitung Total Harga Menggunakan Harga Asli Produk
+  const handlePesan = async () => {
+    // 1. Hitung Total Harga dan Topping
     let basePrice = produkTerpilih.price; 
-    let selectedToppings = [];
+    let selectedToppings: string[] = []; // Memberi tipe array string agar TypeScript tenang
 
     if (toppings.oreo) { basePrice += 2000; selectedToppings.push('Oreo'); }
     if (toppings.chocoChips) { basePrice += 2000; selectedToppings.push('Choco Chips'); }
     if (toppings.doubleChoco) { basePrice += 3000; selectedToppings.push('Double Chocolate'); }
     if (toppings.request) { selectedToppings.push('Request Khusus'); }
 
-    // 2. Susun Format Pesan
-    const textPesan = `Halo Shan's Cake! Saya ingin memesan:
+    const stringToppings = selectedToppings.length > 0 ? selectedToppings.join(', ') : 'Original';
+
+    try {
+      // 2. SIMPAN KE DATABASE DULU
+      await axios.post('http://localhost:5000/api/orders', {
+        customer_name: nama,
+        customer_address: alamat,
+        product_name: produkTerpilih.name,
+        toppings: stringToppings,
+        shipping_method: pengiriman === 'ambil' ? 'Ambil Sendiri' : 'Kurir',
+        payment_method: pembayaran === 'transfer' ? 'Transfer Bank' : 'Tunai',
+        total_price: basePrice
+      });
+
+      // 3. JIKA BERHASIL DISIMPAN, BARU BUKA WHATSAPP
+      const textPesan = `Halo Shan's Cake! Saya ingin memesan:
 
 📦 *Detail Pesanan:*
 - Produk: ${produkTerpilih.name} (x1)
-- Topping: ${selectedToppings.length > 0 ? selectedToppings.join(', ') : 'Original/Tanpa Topping'}
+- Topping: ${stringToppings}
 - *Total Harga: Rp ${basePrice.toLocaleString('id-ID')}*
 
 👤 *Data Pemesan:*
@@ -56,10 +71,14 @@ export default function CheckoutPage() {
 
 Apakah pesanan saya bisa segera diproses?`;
 
-    // 3. Arahkan ke WhatsApp
-    const nomorWA = "6281234567890";
-    const urlWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(textPesan)}`;
-    window.open(urlWA, '_blank');
+      const nomorWA = "6281234567890";
+      const urlWA = `https://wa.me/${nomorWA}?text=${encodeURIComponent(textPesan)}`;
+      window.open(urlWA, '_blank');
+
+    } catch (error) {
+      console.error("Gagal memproses pesanan:", error);
+      alert("Maaf, terjadi kendala sistem saat memproses pesanan Anda. Silakan coba lagi.");
+    }
   };
 
   return (
