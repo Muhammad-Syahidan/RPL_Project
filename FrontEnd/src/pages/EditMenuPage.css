@@ -1,204 +1,58 @@
-/* Layout Utama */
-.edit-page-container {
-  position: relative;
+.dashboard-container {
+  padding: 50px;
+  background-color: #fdf5e6;
   min-height: 100vh;
-  background-color: #FFF9F0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #5D3E29;
-  overflow-x: hidden;
-  display: flex;
-  justify-content: center;
+  font-family: 'Quicksand', sans-serif;
 }
 
-/* Dekorasi */
-.bg-pattern {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.15;
-  pointer-events: none;
-}
-
-.decor-cookie-bottom {
-  position: absolute;
-  bottom: -50px;
-  right: -50px;
-  width: 300px;
-  height: 300px;
-  background-color: #D4A373; /* Placeholder */
-  border-top-left-radius: 50%;
-  opacity: 0.9;
-  pointer-events: none;
-}
-
-/* Konten Utama */
-.edit-page-content {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 900px; /* Lebar maksimal konten */
-  padding: 40px 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.edit-page-title {
-  font-size: 52px;
-  font-weight: 800;
-  margin-bottom: 50px;
+.dashboard-title {
+  color: #5c3a21;
   text-align: center;
+  margin-bottom: 30px;
 }
 
-/* Layout Kolom Kiri dan Kanan */
-.edit-layout {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 60px; /* Jarak antara kartu preview dan form */
+.table-wrapper {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  border: 2px solid #e87b37;
+}
+
+.order-table {
   width: 100%;
-  margin-bottom: 60px;
+  border-collapse: collapse;
 }
 
-/* -- Kolom Kiri: Preview Card -- */
-.preview-section {
-  flex: 0 0 auto;
-}
-
-.preview-card-large {
-  border: 4px solid #ED7D31;
-  border-radius: 20px;
+.order-table th {
+  background-color: #e87b37;
+  color: white;
   padding: 15px;
-  background-color: #FFF3E0; /* Warna krem yang sedikit lebih gelap dari background layar */
-  display: flex;
-  flex-direction: column;
-  width: 300px; /* Lebar kartu sedikit lebih besar dari halaman menu biasa */
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  text-align: left;
 }
 
-.preview-image-box {
-  width: 100%;
-  aspect-ratio: 1 / 1.1; /* Membuat kotak sedikit lebih tinggi dari persegi murni */
-  background-color: #E8D5C4;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #A68A78;
+.order-table td {
+  padding: 15px;
+  border-bottom: 1px solid #eee;
+  color: #5c3a21;
+}
+
+.status-badge {
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
   font-weight: bold;
-  margin-bottom: 20px;
-  overflow: hidden;
 }
 
-.preview-info {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  padding-bottom: 10px;
-}
+.status-badge.pending { background-color: #ffeaa7; color: #d35400; }
+.status-badge.diproses { background-color: #81ecec; color: #008080; }
+.status-badge.selesai { background-color: #55efc4; color: #006b3c; }
 
-.preview-name {
-  background-color: #F8CBA6;
-  padding: 4px 12px;
-  border-radius: 6px;
-  font-weight: 700;
-  font-size: 16px;
-}
-
-.preview-price {
-  font-weight: 700;
-  font-size: 16px;
-  padding-left: 2px;
-}
-
-/* -- Kolom Kanan: Form Edit -- */
-.form-section {
-  flex: 1;
-  max-width: 450px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-
-.form-group {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.form-group label {
-  font-size: 18px;
-  font-weight: 700;
-  margin-left: 10px;
-}
-
-.edit-input {
-  width: 100%;
-  border: 3px solid #ED7D31;
-  border-radius: 30px;
-  padding: 15px 25px;
-  background-color: rgba(255, 243, 224, 0.5); /* Semi-transparan */
-  color: #5D3E29;
-  font-size: 18px;
-  font-weight: 600;
-  outline: none;
-  font-family: inherit;
-}
-
-.edit-input:focus {
-  background-color: rgba(255, 243, 224, 0.9);
-}
-
-/* Custom Upload Box */
-.upload-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.upload-box:hover {
-  background-color: rgba(237, 125, 49, 0.1);
-}
-
-.upload-text {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.hidden-file-input {
-  display: none;
-}
-
-/* Tombol Kembali Bawah */
-.bottom-action {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-}
-
-.btn-kembali {
-  background-color: #ED7D31;
-  color: #5D3E29;
+.btn-update {
+  background-color: #5c3a21;
+  color: white;
   border: none;
-  border-radius: 30px;
-  padding: 15px 80px; /* Padding horizontal besar agar tombolnya lebar */
-  font-size: 18px;
-  font-weight: 700;
+  padding: 8px 15px;
+  border-radius: 5px;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.btn-kembali:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
 }

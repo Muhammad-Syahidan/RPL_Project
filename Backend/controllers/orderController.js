@@ -1,25 +1,30 @@
 const db = require('../config/db');
 
-const createOrder = async (req, res) => {
-  const { customer_name, customer_address, product_name, toppings, shipping_method, payment_method, total_price } = req.body;
-
+// Mengambil semua pesanan untuk ditampilkan di Dashboard Admin
+const getAllOrders = async (req, res) => {
   try {
-    const query = 'INSERT INTO orders (customer_name, customer_address, product_name, toppings, shipping_method, payment_method, total_price) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    const [result] = await db.query(query, [
-      customer_name, 
-      customer_address, 
-      product_name, 
-      toppings, 
-      shipping_method, 
-      payment_method, 
-      total_price
-    ]);
-    
-    res.status(201).json({ message: 'Pesanan tersimpan di database!', orderId: result.insertId });
+    const [orders] = await db.query('SELECT * FROM orders ORDER BY created_at DESC');
+    res.status(200).json(orders);
   } catch (error) {
-    console.error('Error simpan pesanan:', error.message);
-    res.status(500).json({ message: 'Gagal menyimpan data pesanan.' });
+    console.error('Error ambil pesanan:', error.message);
+    res.status(500).json({ message: 'Gagal mengambil data pesanan.' });
   }
 };
 
-module.exports = { createOrder };
+// Memperbarui status pesanan (misal: Pending -> Diproses -> Selesai)
+const updateOrderStatus = async (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+  try {
+    await db.query('UPDATE orders SET status = ? WHERE id = ?', [status, id]);
+    res.status(200).json({ message: 'Status pesanan berhasil diperbarui!' });
+  } catch (error) {
+    console.error('Error update status:', error.message);
+    res.status(500).json({ message: 'Gagal memperbarui status.' });
+  }
+};
+
+// Fungsi createOrder yang lama tetap ada di sini...
+const createOrder = async (req, res) => { /* ... kode lama ... */ };
+
+module.exports = { createOrder, getAllOrders, updateOrderStatus };
