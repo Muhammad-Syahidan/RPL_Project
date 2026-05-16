@@ -29,5 +29,43 @@ const createMenu = async (req, res) => {
   }
 };
 
-// Jangan lupa export fungsi barunya
-module.exports = { getAllMenus, createMenu };
+// Fungsi BARU: Memperbarui data menu kue berdasarkan ID
+const updateMenu = async (req, res) => {
+  const { id } = req.params;
+  const { name, price } = req.body;
+  
+  try {
+    let query = 'UPDATE menus SET name = ?, price = ? WHERE id = ?';
+    let params = [name, price, id];
+
+    // Jika admin mengupload foto baru, perbarui juga kolom image_url
+    if (req.file) {
+      const image_url = `http://localhost:5000/uploads/${req.file.filename}`;
+      query = 'UPDATE menus SET name = ?, price = ?, image_url = ? WHERE id = ?';
+      params = [name, price, image_url, id];
+    }
+
+    await db.query(query, params);
+    res.status(200).json({ message: 'Menu kue berhasil diperbarui!' });
+  } catch (error) {
+    console.error('Error saat update menu:', error.message);
+    res.status(500).json({ message: 'Gagal memperbarui data menu.' });
+  }
+};
+
+// Fungsi BARU: Menghapus menu dari katalog (atau mengubah status ketersediaan)
+const deleteMenu = async (req, res) => {
+  const { id } = req.params;
+  try {
+    // Kita gunakan DELETE untuk benar-benar menghapus baris dari database
+    await db.query('DELETE FROM menus WHERE id = ?', [id]);
+    res.status(200).json({ message: 'Menu kue berhasil dihapus dari katalog!' });
+  } catch (error) {
+    console.error('Error saat hapus menu:', error.message);
+    res.status(500).json({ message: 'Gagal menghapus menu.' });
+  }
+};
+
+// Pastikan kedua fungsi baru ini di-export di paling bawah file bersama fungsi lainnya
+module.exports = { getAllMenus, createMenu, updateMenu, deleteMenu };
+

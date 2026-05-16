@@ -1,109 +1,131 @@
-import { useState, useRef } from 'react';
-import './EditMenuPage.css';
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import './EditMenuPage.css'; // Sifat styling bisa disamakan dengan AdminMenuPage
 
 export default function EditMenuPage() {
-  // State untuk menyimpan data form yang bisa diedit
-  const [namaMenu, setNamaMenu] = useState('Mini Cake');
-  const [hargaMenu, setHargaMenu] = useState('Rp 35.000');
-  const [fotoNama, setFotoNama] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Mengambil data kue yang dikirim saat tombol edit di-klik dari dashboard/katalog
+  const produkLama = location.state?.produk;
 
-  // Referensi untuk input file tersembunyi
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [formData, setFormData] = useState({
+    name: produkLama?.name || '',
+    price: produkLama?.price || '',
+    image_file: null as File | null
+  });
 
-  const handleUploadClick = () => {
-    fileInputRef.current?.click();
+  // Proteksi: Jika masuk ke halaman edit tanpa membawa data produk, kembalikan ke menu admin
+  useEffect(() => {
+    if (!produkLama) {
+      alert("Pilih menu yang ingin diedit terlebih dahulu!");
+      navigate('/admin');
+    }
+  }, [produkLama, navigate]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      setFotoNama(file.name);
-      // Di aplikasi nyata, di sini Anda juga bisa membuat URL sementara untuk menampilkan preview gambar
+    if (e.target.files && e.target.files[0]) {
+      setFormData({ ...formData, image_file: e.target.files[0] });
+    }
+  };
+
+  // Fungsi menyimpan perubahan data ke database
+  const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const submitData = new FormData();
+    submitData.append('name', formData.name);
+    submitData.append('price', formData.price);
+    
+    if (formData.image_file) {
+      submitData.append('image_file', formData.image_file);
+    }
+
+    try {
+      await axios.put(`http://localhost:5000/api/menus/${produkLama.id}`, submitData, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
+      alert("Sukses: Data menu berhasil diperbarui!");
+      navigate('/menu'); // Kembali ke katalog setelah sukses
+    } catch (error) {
+      console.error("Gagal memperbarui menu:", error);
+      alert("Terjadi kesalahan saat memperbarui data.");
+    }
+  };
+
+  // Fungsi menghapus menu dari katalog
+  const handleDelete = async () => {
+    if (window.confirm(`Apakah Anda yakin ingin menghapus "${produkLama.name}" dari katalog?`)) {
+      try {
+        await axios.delete(`http://localhost:5000/api/menus/${produkLama.id}`);
+        alert("Menu berhasil dihapus!");
+        navigate('/menu');
+      } catch (error) {
+        console.error("Gagal menghapus menu:", error);
+        alert("Terjadi kesalahan saat menghapus data.");
+      }
     }
   };
 
   return (
-    <div className="edit-page-container">
-      {/* Latar Belakang Pola */}
-      <div className="bg-pattern"></div>
+    <div className="admin-container">
+      <h1 className="admin-title">Shan's Edit</h1>
       
-      {/* Dekorasi Cookie Kanan Bawah */}
-      <div className="decor-cookie-bottom"></div>
-
-      <div className="edit-page-content">
-        <h1 className="edit-page-title">Shan's Edit</h1>
-
-        <div className="edit-layout">
-          
-          {/* Kolom Kiri: Preview Kartu Produk */}
-          <div className="preview-section">
-            <div className="preview-card-large">
-              <div className="preview-image-box">
-                {/* Ganti dengan <img src="..." /> nanti */}
-                <span className="img-placeholder">Gambar {namaMenu}</span>
-              </div>
-              <div className="preview-info">
-                <span className="preview-name">{namaMenu || 'Nama Menu'}</span>
-                <span className="preview-price">{hargaMenu || 'Rp 0'}</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Kolom Kanan: Form Edit */}
-          <div className="form-section">
-            <div className="form-group">
-              <label>Nama :</label>
-              <input 
-                type="text" 
-                className="edit-input" 
-                value={namaMenu}
-                onChange={(e) => setNamaMenu(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Harga :</label>
-              <input 
-                type="text" 
-                className="edit-input" 
-                value={hargaMenu}
-                onChange={(e) => setHargaMenu(e.target.value)}
-              />
-            </div>
-
-            <div className="form-group">
-              <label>Edit Foto :</label>
-              {/* Custom Upload Box */}
-              <div className="edit-input upload-box" onClick={handleUploadClick}>
-                <span className={fotoNama ? "upload-text active" : "upload-text"}>
-                  {fotoNama ? fotoNama : 'Upload foto'}
-                </span>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                  <polyline points="17 8 12 3 7 8"></polyline>
-                  <line x1="12" y1="3" x2="12" y2="15"></line>
-                </svg>
-              </div>
-              {/* Input file asli disembunyikan */}
-              <input 
-                type="file" 
-                className="hidden-file-input" 
-                ref={fileInputRef}
-                onChange={handleFileChange}
-                accept="image/*"
-              />
-            </div>
-          </div>
-
+      <form className="admin-form" onSubmit={handleUpdate}>
+        <div className="input-group">
+          <label>Nama Kue :</label>
+          <input 
+            type="text" 
+            name="name" 
+            className="custom-input" 
+            value={formData.name} 
+            onChange={handleChange} 
+            required 
+          />
         </div>
 
-        {/* Tombol Kembali */}
-        <div className="bottom-action">
-          <button className="btn-kembali">
-            <span>&#8592;</span> Kembali
+        <div className="input-group">
+          <label>Harga :</label>
+          <input 
+            type="number" 
+            name="price" 
+            className="custom-input" 
+            value={formData.price} 
+            onChange={handleChange} 
+            required 
+          />
+        </div>
+
+        <div className="input-group">
+          <label>Ganti Foto (Opsional) :</label>
+          <div className="file-upload-wrapper">
+            <span>Ubah foto &uarr;</span>
+            <input 
+              type="file" 
+              name="image_file" 
+              accept="image/*"
+              onChange={handleFileChange} 
+            />
+          </div>
+        </div>
+
+        <div className="button-group">
+          <button type="button" className="btn-action" onClick={() => navigate(-1)}>
+            &larr; Batal
+          </button>
+          <button type="button" className="btn-action" style={{ backgroundColor: '#d63031', color: 'white' }} onClick={handleDelete}>
+            Hapus
+          </button>
+          <button type="submit" className="btn-action">
+            Simpan
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
