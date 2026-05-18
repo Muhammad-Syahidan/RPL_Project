@@ -24,6 +24,9 @@ export default function LoginPages() {
       });
 
       alert("OTP Berhasil Diverifikasi! " + response.data.message);
+
+      // TAMBAHKAN BARIS INI (Set status login menjadi true)
+      localStorage.setItem('isLoggedIn', 'true');
       
       // Jika berhasil login, langsung arahkan ke halaman utama (Landing Page)
       navigate('/');
@@ -44,6 +47,7 @@ export default function LoginPages() {
 
       alert(`Berhasil login menggunakan ${platform}! Pesan server: ${response.data.message}`);
       
+      localStorage.setItem('isLoggedIn', 'true');
       // Langsung arahkan ke halaman utama
       navigate('/');
     } catch (error) {
