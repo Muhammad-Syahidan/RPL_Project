@@ -12,10 +12,10 @@ const db = mysql.createPool({
 // Mengetes koneksi saat file ini dipanggil
 db.getConnection()
   .then(() => {
-    console.log('✅ Berhasil terhubung ke database MySQL (Laragon)!');
+    console.log(' Berhasil terhubung ke database MySQL (Laragon)!');
   })
   .catch((err) => {
-    console.error('❌ Gagal terhubung ke database:', err.message);
+    console.error(' Gagal terhubung ke database:', err.message);
   });
 
 module.exports = db;
