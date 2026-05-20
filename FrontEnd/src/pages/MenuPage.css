@@ -1,103 +1,159 @@
+/* IMPORT FONT LANGSUNG DI CSS */
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght=300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+
+/* Memastikan elemen induk mengizinkan scroll penuh dan menggunakan background baru */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  overflow-y: auto !important; 
+  background-color: #FFF6DA;   
+  font-family: 'Mitr', sans-serif;
+}
+
 /* Container Utama */
 .menu-container {
   position: relative;
   min-height: 100vh;
-  background-color: #FFF9F0;
-  overflow-x: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #5D3E29;
+  width: 100%;
+  padding-bottom: 80px;
+  box-sizing: border-box;
+  overflow: hidden;            
+  background-color: #FFF6DA;   
 }
 
-/* Latar Belakang Pola Baker */
+/* Latar Belakang Pola Logo Bakery Berulang */
 .bg-pattern {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  opacity: 0.15; /* Mengatur transparansi pola agar teks tetap terbaca */
-  pointer-events: none; /* Agar klik tembus ke tombol di bawahnya */
-  /* Tambahkan URL aset background pattern Anda di sini nanti */
-  /* background-image: url('../assets/baker-pattern.png'); */
-  /* background-repeat: repeat; */
+  opacity: 0.15;              /* Dibuat samar agar teks menu tetap kontras & terbaca */
+  pointer-events: none;
+  z-index: 0;
+  background-image: url('../assets/Decoration Background.png'); 
+  background-repeat: repeat;
+  background-size: 1300px;   
+}  
+
+/* Ornamen Kue Jatuh di Pojok Kanan Bawah (IKUT TER-SCROLL) */
+.cookie-decoration {
+  position: absolute;         
+  bottom: -360px;              
+  right: -340px;
+  width: 920px;
+  height: auto;
+  z-index: 2;
+  pointer-events: none;
 }
 
-/* Pembungkus Konten */
+/* Pembungkus Konten Utama */
 .menu-content {
   position: relative;
   z-index: 1;
-  max-width: 1200px;
+  max-width: 1000px; 
   margin: 0 auto;
-  padding: 40px 20px 80px;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Judul Utama Menggunakan Mochiy Pop One */
 .menu-title {
-  font-size: 56px;
-  font-weight: 800;
-  margin-bottom: 30px;
+  font-family: 'Mochiy Pop One', sans-serif; 
+  font-size: 46px;
+  color: #4A2E1B;
+  margin-top: 10px;
+  margin-bottom: 25px;
   text-align: center;
 }
 
-/* Kategori Navigasi */
+/* Filter Kategori Lonjong Menggunakan Mitr */
 .category-filter {
   display: flex;
-  gap: 30px;
-  border: 2px solid #ED7D31;
+  gap: 25px;
+  border: 2.5px solid #D96B27;
   border-radius: 40px;
-  padding: 15px 40px;
-  margin-bottom: 50px;
-  background-color: rgba(255, 255, 255, 0.5); /* Sedikit tembus pandang */
+  padding: 10px 35px;
+  margin-bottom: 45px;
+  background-color: #FFFBF7;
 }
 
 .category-btn {
   background: none;
   border: none;
-  color: #5D3E29;
-  font-size: 20px;
-  font-weight: 600;
+  color: #4A2E1B;
+  font-family: 'Mitr', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
   cursor: pointer;
+  transition: color 0.2s;
 }
 
-/* Grid Layout untuk Produk */
+.category-btn:hover {
+  color: #D96B27;
+}
+
+/* Grid Layout untuk 3 Kolom */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 kolom */
-  gap: 40px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
   width: 100%;
+  justify-items: center;
+  margin-bottom: 40px;
 }
 
-/* Kartu Produk */
+/* Kartu Produk Sesuai Desain */
 .product-card {
-  border: 3px solid #ED7D31;
-  border-radius: 20px;
-  padding: 15px;
-  background-color: #FFF;
+  border: 3px solid #D96B27;
+  border-radius: 24px;
+  padding: 12px;
+  background-color: #FFFFFF;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  width: 100%;
+  max-width: 260px; 
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
+/* Style Gambar Produk */
+.product-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+  margin-bottom: 12px;
+}
+
+/* Placeholder kalau gambar bermasalah */
 .product-image-placeholder {
   width: 100%;
-  aspect-ratio: 1 / 1; /* Membuat gambar selalu persegi */
+  aspect-ratio: 1 / 1;
   background-color: #F4EAE0;
-  border-radius: 12px;
+  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   color: #A68A78;
-  font-size: 14px;
-  margin-bottom: 15px;
-  overflow: hidden;
+  font-family: 'Mitr', sans-serif;
+  font-size: 13px;
+  margin-bottom: 12px;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
+/* Area Informasi */
 .product-info {
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: center;
+  width: 100%;
+  margin-top: auto;
 }
 
 .text-info {
@@ -105,61 +161,86 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 5px;
+  width: 80%;
 }
 
+/* Highlight Oranye Nama Menu Menggunakan Mitr */
 .product-name {
-  background-color: #F8CBA6; /* Highlight oranye muda di belakang nama kue */
-  padding: 4px 10px;
+  background-color: #FAD3B6;
+  color: #4A2E1B;
+  font-family: 'Mitr', sans-serif;
+  font-weight: 500;
+  padding: 3px 10px;
   border-radius: 6px;
-  font-weight: 700;
-  font-size: 15px;
+  font-size: 13px;
+  line-height: 1.4;
+  white-space: normal; 
+  word-wrap: break-word;
+  width: fit-content;
+  max-width: 100%;
 }
 
+/* Harga Produk Menggunakan Mitr */
 .product-price {
-  font-weight: 600;
+  font-family: 'Mitr', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: #5D3E29;
   padding-left: 2px;
+  margin-top: 2px;
 }
 
-/* Tombol Plus (+) */
+/* Tombol Tambah (+) Lingkaran */
 .add-btn {
   background: none;
   border: none;
-  color: #5D3E29;
+  color: #4A2E1B;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.2s;
+  padding: 0;
+  transition: transform 0.2s, color 0.2s;
 }
 
 .add-btn:hover {
-  transform: scale(1.1);
-  color: #ED7D31;
+  transform: scale(1.15);
+  color: #D96B27;
 }
 
-/* Tombol Aksi Bawah (Kembali & WhatsApp) */
+/* Tombol Navigasi Bawah */
 .bottom-actions {
   display: flex;
-  gap: 30px;
-  margin-top: 60px;
+  gap: 25px;
+  margin-top: 20px;
+  width: 100%;
+  justify-content: center;
+  position: relative;
+  z-index: 3;
 }
 
 .action-btn {
-  background-color: #ED7D31;
-  color: #5D3E29;
+  background-color: #E2722B;
+  color: #000000;
   border: none;
   border-radius: 30px;
-  padding: 15px 50px;
-  font-size: 18px;
-  font-weight: 700;
+  padding: 12px 60px;
+  font-family: 'Mitr', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  transition: transform 0.2s, background-color 0.2s;
 }
 
 .action-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+  background-color: #CD5F18;
+}
+
+.whatsapp-btn {
+  background-color: #E2722B;
 }
