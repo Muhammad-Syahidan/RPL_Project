@@ -1,103 +1,86 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 1. Import useNavigate untuk pindah halaman
-import axios from 'axios'; // 2. Import axios untuk kirim data ke backend
+import { useNavigate } from 'react-router-dom'; // 1. Tambahkan import ini
 import './LoginPages.css';
+
+import browniesBg from '../assets/browniesFull.png';
+import logo from '../assets/logo.png';
+import browniesLapis from '../assets/browniesLapis.png';
+import backgroundBulat from '../assets/background_bulat.png';
+
+import googleIcon from '../assets/googleLogo.png';
+import facebookIcon from '../assets/facebookLogo.png';
+import xIcon from '../assets/Xlogo.png';
 
 export default function LoginPages() {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const navigate = useNavigate(); // Inisialisasi navigasi
+  const navigate = useNavigate(); // 2. Inisialisasi navigate
 
-  // Fungsi Login menggunakan Nomor HP
-  const handleSendOTP = async (e: React.FormEvent) => {
+  const handleSendOTP = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Menggabungkan kode negara dengan nomor yang diketik
-    const fullPhoneNumber = `+62${phoneNumber}`;
-    
-    try {
-      // Karena kita belum memasang API OTP asli (seperti Firebase SMS),
-      // kita mengirim data ini langsung ke backend MySQL sebagai registrasi/login
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        name: `User ${phoneNumber}`, // Nama sementara
-        phone_number: fullPhoneNumber,
-        email: `${phoneNumber}@pelanggan.com` // Email sementara agar database tidak error
-      });
+    // Logika pengiriman nomor telepon bisa ditaruh di sini
+    const fullNumber = `+62${phoneNumber}`;
+    console.log(fullNumber);
 
-      alert("OTP Berhasil Diverifikasi! " + response.data.message);
-
-      // TAMBAHKAN BARIS INI (Set status login menjadi true)
-      localStorage.setItem('isLoggedIn', 'true');
-      
-      // Jika berhasil login, langsung arahkan ke halaman utama (Landing Page)
-      navigate('/');
-    } catch (error) {
-      console.error("Gagal login:", error);
-      alert("Terjadi kesalahan saat mencoba terhubung ke server.");
-    }
-  };
-
-  // Fungsi Login menggunakan Sosial Media (Google, Facebook, dll)
-  const handleSocialLogin = async (platform: string) => {
-    try {
-      const response = await axios.post('http://localhost:5000/api/auth/login', {
-        name: `Pengguna ${platform}`,
-        email: `user@${platform.toLowerCase()}.com`,
-        google_id: platform === 'Google' ? `google_${Date.now()}` : null, // ID unik pura-pura
-      });
-
-      alert(`Berhasil login menggunakan ${platform}! Pesan server: ${response.data.message}`);
-      
-      localStorage.setItem('isLoggedIn', 'true');
-      // Langsung arahkan ke halaman utama
-      navigate('/');
-    } catch (error) {
-      console.error(`Gagal login dengan ${platform}:`, error);
-      alert("Terjadi kesalahan saat mencoba login sosial media.");
-    }
+    // 3. Navigasi ke halaman OTP
+    navigate('/otp'); 
   };
 
   return (
-    <div className="login-container">
-      {/* Bagian Kiri: Area Visual */}
-      <div className="login-visual">
-        {/* Nantinya letakkan tag <img> untuk aset visual kiri di sini */}
-      </div>
+    <div className="login-wrapper">
+      <div className="login-container">
 
-      {/* Bagian Kanan: Form Registrasi/Login */}
-      <div className="login-form-section">
-        <div className="header-wrapper">
-          <h1 className="title">Halo,<br />Brownie!</h1>
-          <img className="logo" src="./src/assets/logo.png" alt="logo" />
-        </div>
+        {/* LEFT SIDE */}
+        <div
+          className="login-visual"
+          style={{ backgroundImage: `url(${browniesBg})` }}
+        ></div>
 
-        <form onSubmit={handleSendOTP} className="form-container">
-          <label className="input-label">Masukkan Nomor Whatsapp :</label>
-          
-          <div className="input-group">
-            <span className="flag-icon">🇮🇩</span>
-            <span className="country-code">+62</span>
-            <input
-              type="tel"
-              className="phone-input"
-              placeholder="812-4547-2357"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))} // Hanya menerima angka
-              required
-            />
+        {/* RIGHT SIDE */}
+        <div className="login-form-section">
+          <div className="header-wrapper">
+            <h1 className="title">Halo,<br />Brownie!</h1>
+            <img src={logo} className="logo" alt="logo" />
           </div>
 
-          <button type="submit" className="btn-submit">
-            Kirim kode OTP
-          </button>
-        </form>
+          <form onSubmit={handleSendOTP} className="form-container">
+            <label className="input-label">Masukkan Nomor Whatsapp :</label>
 
-        <div className="social-login-section">
-          <p className="social-text">Atau login <span className="text-orange">menggunakan</span></p>
-          <div className="social-icons">
-            {/* Menambahkan onClick pada masing-masing tombol sosial media */}
-            <button className="icon-circle google" onClick={() => handleSocialLogin('Google')}>G</button>
-            <button className="icon-circle fb" onClick={() => handleSocialLogin('Facebook')}>f</button>
-            <button className="icon-circle x" onClick={() => handleSocialLogin('X')}>𝕏</button>
+            <div className="input-group">
+              <span className="flag-icon">🇮🇩</span>
+              <span className="country-code">+62</span>
+              <input
+                type="tel"
+                className="phone-input"
+                placeholder="812-3456-7890"
+                value={phoneNumber}
+                onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+              />
+            </div>
+
+            <button type="submit" className="btn-submit">
+              Kirim kode OTP
+            </button>
+          </form>
+
+          <div className="social-login-section">
+            <p className="social-text">Atau login <span>menggunakan</span></p>
+            <div className="social-icons">
+              <button className="social-btn">
+                <img src={googleIcon} alt="Google" />
+              </button>
+              <button className="social-btn">
+                <img src={facebookIcon} alt="Facebook" />
+              </button>
+              <button className="social-btn">
+                <img src={xIcon} alt="X" />
+              </button>
+            </div>
+          </div>
+
+          <div className="bottom-decoration">
+            <img src={backgroundBulat} className="circle-bg" alt="" />
+            <img src={browniesLapis} className="brownies-lapis" alt="" />
           </div>
         </div>
       </div>

@@ -8,6 +8,8 @@ import CheckoutPage from './pages/CheckoutPage';
 import AdminMenuPage from './pages/AdminMenuPage';
 import DashboardPage from './pages/DashboardPage';
 import EditMenuPage from './pages/EditMenuPage';
+import ConfirmationPage from './pages/ConfirmationPage';
+
 
 import ProtectedRoute from './component/ProtectedRoute'; 
 
@@ -21,6 +23,8 @@ function App() {
         <Route path="/login" element={<LoginPages />} />
         <Route path="/menu" element={<MenuPage />} />
         <Route path="/checkout" element={<CheckoutPage />} />
+        <Route path="/confirmation" element={<ConfirmationPage />} />
+
 
         {/* ================= RUTE TERPROTEKSI ================= */}
         <Route element={<ProtectedRoute />}>

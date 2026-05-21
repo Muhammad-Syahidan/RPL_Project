@@ -1,173 +1,176 @@
-*{
-  
+/* Import Font Baru */
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+
+* {
   margin: 0;
   padding: 0;
-}
-
-html, body, #root {
-  width: 100%;
-  max-height: 100vh;
   box-sizing: border-box;
-  background-color: #FFF9F0; /* Menyamakan dengan background kiri */
 }
 
-/* Reset dasar untuk halaman ini */
-.login-container {
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+  font-family: 'Mitr', sans-serif;
+  background: #f3efe6;
+  overflow: hidden;
+}
+
+.login-wrapper {
+  width: 100%;
+  height: 100vh;
   display: flex;
-  min-height: 100vh;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ganti dengan font yang Anda pakai */
+  justify-content: center;
+  align-items: center;
 }
 
-/* Bagian Kiri (Placeholder untuk gambar) */
+.login-container {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  background: #f6eed5;
+  border: 7px solid #6a432c;
+  overflow: hidden;
+}
+
 .login-visual {
   flex: 1;
-  background-color: #FFF9F0; /* Warna krem terang */
-  /* Tambahkan background-image url() aset brownies di sini nanti */
-  background-image: url('./../src/assets/brownies.png'); /* Ganti dengan path aset yang benar */
   background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-/* Bagian Kanan (Form) */
 .login-form-section {
   flex: 1;
-  background-color: #FFF3E0; /* Sesuai warna background mockup kanan */
-  padding: 60px 80px;
+  position: relative;
+  background: #f6eed5;
+  border-left: 7px solid #6a432c;
+  padding: 50px 50px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  position: relative;
   overflow: hidden;
 }
 
 .header-wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center; /* <--- Ubah bagian ini dari flex-start menjadi center */
-  margin-bottom: 40px; /* Atau berapapun angka yang Anda gunakan saat ini */
-  margin-top: -30px;   /* Pertahankan jika Anda menggunakan cara 1 sebelumnya */
-}
-.logo {
-  width: 280px; /* Sesuaikan ukuran logo */
-  height: auto;
+  align-items: flex-start;
 }
 
 .title {
-  text-align: center;
-  color: #5D3E29; /* Warna cokelat teks */
-  font-size: 48px;
-  line-height: 1.1;
-  margin: 0;
-  font-weight: 900;
-  align-items: start;
-
+  color: #6a432c;
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: clamp(30px, 3vw, 52px);
+  line-height: 1.2;
+  font-weight: 400;
+  max-width: 300px;
 }
 
+.logo {
+  width: 150px; 
+  height: auto;
+  object-fit: contain;
+  margin-top: -10px;
+}
 
-
-/* Form Styling */
 .form-container {
+  width: 100%;
+  margin-top: 40px;
   display: flex;
   flex-direction: column;
-  align-items: center; /* Memposisikan elemen di tengah secara horizontal */
 }
 
 .input-label {
-  color: #5D3E29;
-  font-weight: 600;
   margin-bottom: 12px;
-  align-self: flex-start; /* Mengembalikan label ke kiri */
-  margin-left: 10%; /* Menyesuaikan agar sejajar dengan input */
+  color: #6a432c;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 .input-group {
+  width: 95%;
+  height: 65px;
+  background: #eb742d;
+  border-radius: 20px;
   display: flex;
   align-items: center;
-  background-color: #ED7D31; /* Oranye khas mockup */
-  border-radius: 12px;
-  padding: 12px 20px;
-  width: 80%;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  margin-bottom: 30px;
+  padding: 0 20px;
+  gap: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.flag-icon {
-  font-size: 20px;
-  margin-right: 8px;
-}
-
-.country-code {
-  color: #FFF;
-  font-weight: bold;
-  margin-right: 8px;
-}
-
-.phone-input {
-  background: transparent;
-  border: none;
-  color: #5D3E29;
-  font-size: 16px;
-  font-weight: 600;
-  outline: none;
-  flex: 1;
-}
-
-.phone-input::placeholder {
-  color: rgba(93, 62, 41, 0.6);
-}
+.flag-icon { font-size: 24px; }
+.country-code { font-size: 22px; font-weight: 600; color: #000; }
+.phone-input { flex: 1; border: none; outline: none; background: transparent; font-size: 20px; color: #000; }
 
 .btn-submit {
-  background-color: #ED7D31;
-  color: #5D3E29;
+  margin-top: 35px;
+  align-self: center;
+  width: 280px;
+  height: 60px;
   border: none;
-  border-radius: 25px;
-  padding: 14px 40px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
-  transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.btn-submit:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
-}
-
-/* Social Login Styling */
-.social-login-section {
-  margin-top: 60px;
-  text-align: center;
-}
-
-.social-text {
-  color: #5D3E29;
+  border-radius: 999px;
+  background: #eb742d;
+  color: #000;
+  font-size: 20px;
   font-weight: 600;
-  margin-bottom: 20px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.text-orange {
-  color: #ED7D31;
+.btn-submit:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+/* SOCIAL LOGIN - UPDATE DISINI */
+.social-login-section {
+  margin-top: 50px;
+  text-align: center;
+  z-index: 2;
 }
+
+.social-text { color: #6a432c; font-size: 18px; font-weight: 500; }
+.social-text span { color: #eb742d; }
 
 .social-icons {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 30px;
+  margin-top: 20px;
 }
 
-.icon-circle {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
+.social-btn {
+  background: transparent; /* Hilangkan lingkaran putih */
   border: none;
-  background-color: #FFF;
-  font-weight: bold;
-  font-size: 20px;
+  padding: 0;
   cursor: pointer;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.2s;
 }
 
-.icon-circle.x {
-  background-color: #000;
-  color: #FFF;
+.social-btn:hover { transform: scale(1.1); }
+
+.social-btn img {
+  width: 40px; 
+  height: 60px;
+  object-fit: contain;
+}
+
+/* DECORATION */
+.bottom-decoration {
+  position: absolute;
+  bottom: -10px;
+  right: -5px;
+  width: 280px;
+  z-index: 1;
+}
+
+.circle-bg { width: 100%; }
+.brownies-lapis { position: absolute; width: 70%; right: 12%; bottom: 8%; }
+
+@media (max-width: 768px) {
+  .login-container { flex-direction: column; }
+  .login-visual { height: 30vh; }
+  .login-form-section { border-left: none; border-top: 7px solid #6a432c; padding: 30px 20px; }
 }
