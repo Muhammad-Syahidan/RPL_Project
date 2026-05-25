@@ -1,16 +1,6 @@
-/* IMPORT FONT */
-@import url('https://fonts.googleapis.com/css2?family=Mitr:wght=300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
 
-html, body, #root {
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
-  overflow-y: auto !important;
-  background-color: #FFF6DA;
-  font-family: 'Mitr', sans-serif;
-}
-
-.menu-container {
+.admin-menu-container {
   position: relative;
   min-height: 100vh;
   width: 100%;
@@ -18,24 +8,24 @@ html, body, #root {
   box-sizing: border-box;
   overflow: hidden;
   background-color: #FFF6DA;
+  font-family: 'Mitr', sans-serif;
 }
 
-.menu-bg-pattern {
+.admin-menu-bg-pattern {
   position: absolute;
-  top:-200px;
+  top: -200px;
   left: 0;
   width: 100%;
   height: 130%;
   opacity: 0.7;
   pointer-events: none;
   z-index: 0;
-  background-image: url('../assets/BgPattern.png');
+  background-image: url('../../assets/BgPattern.png');
   background-repeat: repeat;
-  background-position: top center;
   background-size: 1500px;
 }
 
-.cookie-decoration {
+.admin-menu-cookie-decoration {
   position: absolute;
   bottom: -360px;
   right: -340px;
@@ -45,7 +35,7 @@ html, body, #root {
   pointer-events: none;
 }
 
-.menu-content {
+.admin-menu-content {
   position: relative;
   z-index: 1;
   max-width: 1000px;
@@ -56,7 +46,7 @@ html, body, #root {
   align-items: center;
 }
 
-.menu-title {
+.admin-menu-title {
   font-family: 'Mochiy Pop One', sans-serif;
   font-size: 46px;
   color: #4A2E1B;
@@ -65,7 +55,7 @@ html, body, #root {
   text-align: center;
 }
 
-.category-filter {
+.admin-menu-category-filter {
   display: flex;
   gap: 25px;
   border: 2.5px solid #EB7337;
@@ -75,7 +65,7 @@ html, body, #root {
   background-color: #FFF6DA;
 }
 
-.category-btn {
+.admin-menu-category-btn {
   background: none;
   border: none;
   color: #4A2E1B;
@@ -85,11 +75,11 @@ html, body, #root {
   transition: color 0.2s;
 }
 
-.category-btn:hover {
+.admin-menu-category-btn:hover {
   color: #EB7337;
 }
 
-.product-grid {
+.admin-menu-product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 30px;
@@ -98,7 +88,7 @@ html, body, #root {
   margin-bottom: 40px;
 }
 
-.product-card {
+.admin-menu-product-card {
   border: 3px solid #EB7337;
   border-radius: 24px;
   padding: 12px;
@@ -111,7 +101,7 @@ html, body, #root {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
 }
 
-.product-image {
+.admin-menu-product-image {
   width: 100%;
   aspect-ratio: 1 / 1;
   object-fit: cover;
@@ -119,7 +109,7 @@ html, body, #root {
   margin-bottom: 12px;
 }
 
-.product-image-placeholder {
+.admin-menu-product-image-placeholder {
   width: 100%;
   aspect-ratio: 1 / 1;
   background-color: #F4EAE0;
@@ -133,10 +123,9 @@ html, body, #root {
   margin-bottom: 12px;
   text-align: center;
   padding: 10px;
-  box-sizing: border-box;
 }
 
-.product-info {
+.admin-menu-product-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -144,15 +133,7 @@ html, body, #root {
   margin-top: auto;
 }
 
-.product-price {
-  font-family: 'Mitr', sans-serif;
-  font-size: 13px;
-  color: #4E3C30 !important;
-  padding-left: 2px;
-  margin-top: 2px;
-}
-
-.text-info {
+.admin-menu-text-info {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -161,50 +142,50 @@ html, body, #root {
   min-height: 70px;
 }
 
-.product-name {
+.admin-menu-product-name {
   background-color: rgba(235, 115, 55, 0.4);
   color: #4A2E1B;
   font-family: 'Mitr', sans-serif;
   font-size: 13px;
-  font-size: 13px;
   line-height: 1.4;
   padding: 3px 10px;
   border-radius: 6px;
-
   display: inline-block;
   max-width: 180px;
-
   word-break: break-word;
 }
 
-/* HARGA: Tidak Bold & Warna Sesuai */
-.product-price {
+.admin-menu-product-price {
   font-family: 'Mitr', sans-serif;
-  font-weight: 400; 
+  font-weight: 400;
   font-size: 13px;
   color: #4E3C30;
   padding-left: 2px;
   margin-top: 2px;
 }
 
-.add-btn {
+.admin-menu-edit-btn {
   background: none;
   border: none;
-  color: #4A2E1B;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  transition: transform 0.2s, color 0.2s;
+  transition: transform 0.2s;
 }
 
-.add-btn:hover {
+.admin-menu-edit-btn:hover {
   transform: scale(1.15);
-  color: #D96B27;
 }
 
-.bottom-actions {
+.admin-menu-edit-icon {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+}
+
+.admin-menu-bottom-actions {
   display: flex;
   gap: 25px;
   margin-top: 20px;
@@ -214,7 +195,7 @@ html, body, #root {
   z-index: 3;
 }
 
-.action-btn {
+.admin-menu-action-btn {
   background-color: #E2722B;
   color: #342118;
   border: none;
@@ -230,24 +211,13 @@ html, body, #root {
   transition: transform 0.2s, background-color 0.2s;
 }
 
-.back-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.back-icon {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
-}
-
-.action-btn:hover {
+.admin-menu-action-btn:hover {
   transform: translateY(-2px);
   background-color: #CD5F18;
 }
 
-.whatsapp-btn {
-  background-color: #E2722B;
+.admin-menu-back-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }

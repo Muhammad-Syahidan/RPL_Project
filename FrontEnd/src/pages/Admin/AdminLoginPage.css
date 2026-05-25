@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.admin-login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  border: 7px solid #6a432c;
+  background: #FFF6DA;
+  font-family: 'Mitr', sans-serif;
+  overflow: hidden;
+}
+
+.admin-login-visual {
+  flex: 1;
+  background-color: #FFF6DA;
+  border-right: 7px solid #6a432c;
+  background-image: url('../../assets/browniesFull.png');
+  background-size: cover;
+  background-position: center;
+}
+
+.admin-login-form-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Tombol Login tetap tepat di tengah */
+  align-items: center;
+  position: relative;
+}
+
+/* Mengatur posisi Logo dan Teks secara independen */
+.admin-login-header-absolute {
+  position: absolute;
+  top: 80px; 
+  display: flex;
+  flex-direction: row; 
+  align-items: center; /* Menjaga vertikal sejajar */
+  justify-content: center;
+  gap: 0px;
+}
+
+.admin-login-logo-img {
+  width: 200px; 
+  height: auto;
+  /* Jika logo terlalu turun dibanding teks, kurangi angka ini */
+  transform: translateY(-5px); 
+}
+
+.admin-login-title {
+  color: #6a432c;
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: 40px;
+  margin: 0;
+}
+
+.admin-login-btn-submit {
+  width: 260px;
+  height: 70px;
+  border: 3px solid #eb742d;
+  border-radius: 999px;
+  background: transparent;
+  color: #eb742d;
+  font-size: 24px;
+  font-family: 'Mitr', sans-serif;
+  cursor: pointer;
+  transition: 0.3s;
+  z-index: 3;
+}
+
+.admin-login-btn-submit:hover { background-color: #eb742d; color: #fff; }
+
+.admin-orange-circle-decoration {
+  position: absolute;
+  bottom: -40px;
+  right: -40px;
+  width: 400px;
+  z-index: 1;
+}
+
+.admin-decor-brownies-lapis {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  width: 30%;
+  z-index: 2;
+}

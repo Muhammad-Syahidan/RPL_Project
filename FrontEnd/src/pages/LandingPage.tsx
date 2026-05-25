@@ -6,7 +6,7 @@ import chocoDripImg from '../assets/ChocoDrip.png';
 import bulatOrenImg from '../assets/bulatLandingPage.png';
 import bulatCokelatImg from '../assets/bulatLandingPage2.png'; 
 import browniesLandingImg from '../assets/browniesLandingPage.png';
-import logoBenarImg from '../assets/logo2.png'; // 1. Diubah ke logo2.png (Logo Shan's Bakery & Cake yang benar)
+import logoBenarImg from '../assets/logo2.png';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -34,8 +34,15 @@ export default function LandingPage() {
         
         {/* Menu Navigasi Atas */}
         <div className="top-navigation">
-          <span className="nav-account" onClick={() => navigate('/login')}>Account</span>
-          {/* 2. Menggunakan variabel logoBenarImg yang merujuk ke logo2.png */}
+          {/* Navigasi Account diarahkan ke /account */}
+          <span 
+            className="nav-account" 
+            onClick={() => navigate('/account')}
+            style={{ cursor: 'pointer' }}
+          >
+            Account
+          </span>
+          
           <img src={logoBenarImg} alt="Shan's Bakery & Cake Logo" className="baker-logo-landing" />
         </div>
 

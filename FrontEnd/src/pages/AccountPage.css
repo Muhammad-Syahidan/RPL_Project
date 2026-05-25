@@ -1,0 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+
+.account-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #FFF6DA;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* BACKGROUND CHEF */
+.account-bg-pattern {
+  position: absolute;
+
+  /* MULAI DARI TENGAH */
+  top: 40%;
+  left: 0;
+
+  width: 100%;
+  height: 80%;
+
+  opacity: 1;
+  pointer-events: none;
+  z-index: 0;
+
+  background-image: url('../assets/Decoration Background.png');
+  background-repeat: repeat;
+  background-size: 1525px;
+}
+
+.deco-drip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  z-index: 1;
+}
+
+.account-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.acc-title {
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: 46px;
+  color: #4A2E1B;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* PROFILE */
+.profile-section {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.field-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.label-text {
+  width: 110px;
+  font-family: 'Mitr', sans-serif;
+  font-size: 20px;
+  color: #4A2E1B;
+}
+
+.input-box {
+  flex: 1;
+  border: 2.5px solid #EB7337;
+  border-radius: 40px;
+  padding: 13px 24px;
+  background: #FFF6DA;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.input-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background: transparent;
+
+  font-family: 'Mitr', sans-serif;
+  font-size: 18px;
+  color: #4A2E1B;
+}
+
+/* ICON EDIT */
+.edit-icon {
+  width: 22px;
+  height: 22px;
+  object-fit: contain;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* GARIS */
+.divider {
+  width: 78%;
+  height: 2px;
+  background-color: #4A2E1B;
+  margin: 40px auto;
+}
+
+.orders-header {
+  font-family: 'Mitr', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #4A2E1B;
+  margin-bottom: 18px;
+}
+
+/* ORDER CARD */
+.order-card {
+  width: 100%;
+  border: 2.5px solid #EB7337;
+  border-radius: 28px;
+  padding: 14px 18px;
+  background-color: #FFF6DA;
+
+  display: flex;
+  align-items: center;
+  gap: 18px;
+
+  margin-bottom: 18px;
+  box-sizing: border-box;
+}
+
+/* FOTO PRODUK */
+.order-img {
+  width: 92px;
+  height: 92px;
+  border-radius: 12px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* ISI ORDER */
+.order-info {
+  flex: 1;
+  font-family: 'Mitr', sans-serif;
+  color: #6A432C;
+}
+
+/* BARIS JUDUL */
+.order-title-row {
+  position: relative;
+  width: 100%;
+  min-height: 24px;
+}
+
+/* NAMA PRODUK */
+.order-title {
+  font-family: 'Mitr', sans-serif;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: #6A432C;
+
+  padding-right: 35px;
+}
+
+/* JUMLAH */
+.order-qty {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  font-family: 'Mitr', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #6A432C;
+}
+
+/* DETAIL */
+.order-detail {
+  margin-top: 2px;
+
+  font-family: 'Mitr', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+
+  color: #6A432C;
+  line-height: 1.4;
+}
+
+/* STATUS */
+.order-status {
+  margin-top: 4px;
+
+  font-family: 'Mitr', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+
+  color: #6A432C;
+}
+
+/* BUTTON */
+.back-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.back-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  margin-top: 40px;
+}
+
+.btn-action {
+  background-color: #EB7337;
+  color: #342118;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 60px;
+
+  font-family: 'Mitr', sans-serif;
+  font-size: 18px;
+
+
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-action:hover {
+  background-color: #EB7337;
+  transform: translateY(-2px);
+}

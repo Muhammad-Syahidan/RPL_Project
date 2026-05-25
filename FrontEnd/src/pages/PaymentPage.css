@@ -1,30 +1,36 @@
-/* Layout Utama */
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght=300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+
+/* Reset Scrollbar & Layout */
+::-webkit-scrollbar {
+  display: none;
+}
+
 .payment-container {
   position: relative;
   min-height: 100vh;
-  background-color: #FFF9F0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #FFF6DA;
+  font-family: 'Mitr', sans-serif;
   color: #5D3E29;
   overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
   display: flex;
   justify-content: center;
 }
 
-/* Dekorasi Pola Kanan Atas */
 .bg-pattern-corner {
   position: absolute;
-  top: -50px;
-  right: -50px;
+  top: -10px;
+  right: -10px;
   width: 400px;
   height: 400px;
-  background-color: #E8D5C4; /* Warna dasar pola */
-  border-radius: 50%;
+  background-image: url('../assets/bulatPayment.png');
+  background-size: contain;
+  background-repeat: no-repeat;
   opacity: 0.8;
   pointer-events: none;
-  /* Tambahkan background-image di sini nanti jika ada aset polanya */
 }
 
-/* Pembungkus Konten */
 .payment-content {
   position: relative;
   z-index: 1;
@@ -37,11 +43,10 @@
 }
 
 .payment-title {
+  font-family: 'Mochiy Pop One', sans-serif;
   font-size: 48px;
-  font-weight: 800;
   text-align: center;
   margin: 0 0 20px 0;
-  letter-spacing: 1px;
 }
 
 .payment-section {
@@ -50,13 +55,13 @@
   gap: 15px;
 }
 
-.section-label {
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0;
+.submit-section {
+  display: flex;
+  justify-content: flex-end;
 }
 
-/* QRIS & Info Bank */
+.section-label { font-size: 20px; font-weight: 400; }
+
 .qris-transfer-wrapper {
   display: flex;
   align-items: center;
@@ -68,7 +73,7 @@
   width: 250px;
   height: 250px;
   background-color: #FFF;
-  border: 12px solid #3F291D; /* Bingkai cokelat tua yang tebal */
+  border: 12px solid #3F291D;
   border-radius: 16px;
   display: flex;
   justify-content: center;
@@ -76,98 +81,67 @@
   overflow: hidden;
 }
 
-.qr-placeholder {
-  color: #999;
-  font-weight: bold;
+.qr-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .transfer-details {
   display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.text-atau {
-  font-size: 18px;
-  font-weight: 600;
+  align-items: flex-start;
+  gap: 15px;
 }
 
 .bank-info {
   display: flex;
   flex-direction: column;
+  gap: 0px;
+  margin-top: -10px;
 }
 
-.bank-name, .bank-account {
+.bank-name,
+.bank-number {
   font-size: 18px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
-/* Custom Upload Box */
+.text-atau { 
+  font-size: 18px; 
+  font-weight: 400;
+}
+
 .upload-box {
-  border: 3px solid #ED7D31;
+  border: 3px solid #EB7337;
   border-radius: 20px;
   padding: 15px 25px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  background-color: transparent;
   min-height: 80px;
-  transition: background-color 0.2s;
-}
-
-.upload-box:hover {
-  background-color: rgba(237, 125, 49, 0.05);
-}
-
-.file-name-display {
-  flex: 1;
-  font-size: 16px;
-  font-weight: 500;
-  color: #5D3E29;
-  overflow: hidden;
-  text-overflow: ellipsis; /* Akan memotong nama file panjang menjadi ... */
-  white-space: nowrap;
-  padding-right: 20px;
 }
 
 .btn-pilih-files {
   background-color: transparent;
   color: #111;
-  border: 2px solid #ED7D31;
+  border: 3px solid #EB7337;
   border-radius: 25px;
   padding: 12px 30px;
   font-size: 16px;
   font-weight: 700;
-  cursor: pointer;
-  pointer-events: none; /* Mencegah klik tombol berbenturan dengan klik kotak luar */
+  pointer-events: none;
 }
 
-.hidden-file-input {
-  display: none; /* Ini menyembunyikan tombol upload asli browser */
-}
-
-/* Tombol Selesai */
-.submit-section {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
+.hidden-file-input { display: none; }
 
 .btn-selesai {
-  background-color: #ED7D31;
-  color: #5D3E29;
+  background-color: #EB7337;
+  color: #342118;
   border: none;
   border-radius: 25px;
   padding: 12px 50px;
   font-size: 18px;
-  font-weight: bold;
+  font-family: 'Mitr', sans-serif;
   cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-
-.btn-selesai:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
 }

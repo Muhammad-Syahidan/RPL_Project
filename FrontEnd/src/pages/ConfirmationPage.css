@@ -1,48 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght=300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+
 /* Layout Utama */
 .confirmation-container {
   position: relative;
   min-height: 100vh;
-  background-color: #FFF9F0; /* Warna krem khas Shan's Cake */
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #5D3E29; /* Warna teks cokelat tua */
+  background-color: #FFF6DA; /* Warna krem khas Shan's Cake */
+  font-family: 'Mochiy Pop One', sans-serif;
+  color: #643F2D; /* Warna teks cokelat tua */
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden; /* Mencegah scroll bar jika gambar dekorasi sedikit keluar batas */
 }
 
-/* Dekorasi Visual - Lelehan Cokelat Kiri Atas */
+/* Dekorasi Kiri Atas */
 .decor-choco-drip {
   position: absolute;
   top: 0;
   left: 0;
-  width: 300px;
-  height: 250px;
-  background-color: #3F291D; /* Placeholder warna cokelat gelap */
-  border-bottom-right-radius: 50%;
-  opacity: 0.8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFF;
-  /* Tambahkan background-image: url(...) di sini nanti */
+  width: 550px;
+  z-index: 0;
+  pointer-events: none;
 }
 
-/* Dekorasi Visual - Cookie Kanan Bawah */
+/* Dekorasi Kanan Bawah */
 .decor-cookie {
   position: absolute;
-  bottom: -20px;
-  right: -20px;
-  width: 250px;
-  height: 250px;
-  background-color: #D4A373; /* Placeholder warna cookie */
-  border-top-left-radius: 50%;
-  opacity: 0.8;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #FFF;
-  /* Tambahkan background-image: url(...) di sini nanti */
+  bottom: -360px;
+  right: -340px;
+  width: 920px;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .placeholder-text {
@@ -64,7 +52,6 @@
 
 .title-thanks {
   font-size: 36px;
-  font-weight: 800;
   margin: 0;
   letter-spacing: 0.5px;
 }
@@ -78,12 +65,12 @@
 /* Tombol Cek Pesanan */
 .btn-cek-pesanan {
   background-color: #ED7D31; /* Warna oranye */
-  color: #5D3E29; /* Teks warna cokelat tua sesuai mockup */
+  color: #342118; /* Teks warna cokelat tua sesuai mockup */
   border: none;
   border-radius: 25px; /* Bentuk kapsul */
   padding: 12px 40px;
   font-size: 16px;
-  font-weight: 700;
+  font-family: 'Mitr', sans-serif;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: transform 0.2s ease, box-shadow 0.2s ease;

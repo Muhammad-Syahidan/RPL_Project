@@ -1,230 +1,248 @@
-/* Layout Utama */
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@300;400;500;600&display=swap');
+
+/* Container Utama */
 .checkout-container {
-  position: relative;
   min-height: 100vh;
-  background-color: #FFF9F0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #5D3E29;
+  background-color: #FFF6DA;
+  font-family: 'Mitr', sans-serif;
+  color: #643F2D;
+  padding: 40px 20px;
+  position: relative;
   overflow-x: hidden;
 }
 
-/* Dekorasi Pojok Kanan Atas */
+/* Background Blob */
 .bg-blob {
   position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 400px;
-  height: 400px;
-  background-color: #B58A67; /* Placeholder warna blob */
-  border-radius: 50%;
-  opacity: 0.8;
+  top: 0;
+  right: 0;
+  width: 450px;
+  height: 450px;
+  background-image: url('../assets/BulatCheckout.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  z-index: 0;
   pointer-events: none;
-  /* Anda bisa mengganti ini dengan image pattern sesuai mockup */
 }
 
-/* Konten Utama */
-.checkout-content {
-  position: relative;
-  z-index: 1;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 20px 80px;
-}
+.checkout-content { position: relative; z-index: 1; max-width: 800px; margin: 0 auto; }
+.top-section { position: relative; margin-bottom: 30px; }
 
-/* Tombol Kembali */
-.back-btn {
-  background-color: #ED7D31;
-  color: #FFF;
+/* Tombol Back */
+.back-btn-floated {
+  position: absolute;
+  left: -80px;
+  top: 0;
+  background-color: #EB7337;
+  color: #643F2D;
   border: none;
-  width: 50px;
+  width: 50px; 
   height: 50px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   cursor: pointer;
-  margin-bottom: 30px;
-  transition: transform 0.2s;
-}
-
-.back-btn:hover {
-  transform: scale(1.05);
-}
-
-/* Ringkasan Produk */
-.product-summary {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 40px;
-}
-
-.product-img-box {
-  width: 200px;
-  height: 200px;
-  background-color: #E8D5C4;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.product-details {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  position: relative;
-  flex: 1;
-}
-
-.product-title {
-  font-size: 28px;
-  font-weight: 700;
-  margin: 0 0 10px;
-  line-height: 1.2;
-}
-
-.product-qty {
-  position: absolute;
-  right: 0;
-  top: 10px;
-  font-size: 18px;
-  font-weight: 600;
-}
-
-.product-price {
-  color: #ED7D31;
+  z-index: 5;
   font-size: 20px;
-  font-weight: 700;
-  margin: 0;
 }
 
-/* Form Checkout */
-.checkout-form {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
+/* Layout Produk */
+.product-info-wrapper { display: flex; gap: 20px; align-items: flex-start; }
+.product-img-box { width: 250px; height: 250px; background-color: #E8D5C4; border-radius: 20px; overflow: hidden; flex-shrink: 0; }
+.product-img-box img { width: 100%; height: 100%; object-fit: cover; }
+.product-text-details { flex: 1; display: flex; flex-direction: column; }
+
+/* 1. Header Produk (Judul Kiri, x1 Kanan) */
+.product-text-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%; 
+  margin-bottom: 5px;
 }
 
-.form-group label {
-  font-weight: 600;
-  margin-bottom: 12px;
-  display: block;
+/* 2. Judul Produk (Normal, tidak bold) */
+.product-title { 
+  margin: 0; 
+  font-size: 24px; 
+  font-weight: 400; /* Ini kuncinya agar tidak tebal */
+  color: #643F2D; 
 }
 
-/* Input Styles */
-.input-box {
-  width: 100%;
-  border: 2px solid #ED7D31;
-  border-radius: 25px;
-  padding: 12px 20px;
-  background-color: transparent;
-  color: #5D3E29;
-  font-size: 16px;
-  font-weight: 500;
-  outline: none;
+/* 3. Jumlah Produk (x1) */
+.product-qty { 
+  font-size: 18px; 
+  font-weight: 400; 
+  color: #643F2D; 
 }
 
-.textarea-box {
-  border-radius: 20px;
-  display: flex;
-  align-items: flex-start;
+/* 4. Harga (Warna oranye) */
+.product-price { 
+  color: #EB7337; 
+  font-size: 20px; 
+  margin: 5px 0; 
+  font-weight: 500; 
+}
+
+/* 5. Teks Harga Topping/Opsi (Biar seragam) */
+.price-text { 
+  font-size: 16px; 
+  font-weight: 500; 
+  margin-left: 8px; 
+  color: #643F2D; 
+}
+
+/* 6. Pastikan Input Nama Pemesan tetap rapi (Oval Panjang) */
+.input-nama-box {
+  border: 2px solid #EB7337;
+  border-radius: 50px;
   padding: 15px 20px;
+  background-color: transparent;
+  color: #643F2D;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  font-family: 'Mitr', sans-serif;
 }
 
-.textarea-box textarea {
-  flex: 1;
-  background: transparent;
-  border: none;
-  resize: none;
-  outline: none;
-  color: #5D3E29;
-  font-family: inherit;
-  font-size: 15px;
-  height: 60px;
-}
+/* KOTAK PILIHAN (Toppings, Alamat, Pengiriman, Pembayaran) */
+.checkout-form { display: flex; flex-direction: column; gap: 20px; }
+.options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
-.edit-icon {
-  margin-left: 10px;
-  cursor: pointer;
-}
-
-/* Grid Pilhan (Topping, Pembayaran) */
-.options-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.option-pill {
-  border: 2px solid #ED7D31;
-  border-radius: 25px;
-  padding: 12px 20px;
+.alamat-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  cursor: pointer;
-  font-weight: 600;
-  transition: background-color 0.2s;
+  border: 3px solid #EB7337;
+  border-radius: 30px;
+  padding: 15px 20px;
+  width: 100%;             /* Penting: agar membentang penuh */
+  box-sizing: border-box;  /* Penting: agar padding tidak menambah lebar melebihi 100% */
+  background: transparent;
+  margin-bottom: 20px;     /* Memberi jarak sebelum Opsi Pengiriman */
 }
 
-.option-pill:hover {
-  background-color: rgba(237, 125, 49, 0.05);
+/* 1. Pembungkus isi di dalam pill agar rapi (Kiri untuk Label, Kanan untuk Harga) */
+.pill-content {
+  display: flex;
+  justify-content: space-between; /* Mendorong label ke kiri, harga/status ke kanan */
+  align-items: center;
+  width: 100%;
+  padding-right: 15px; /* Memberi jarak agar tidak menempel ke tombol radio */
 }
 
-.option-right {
+/* 2. Style untuk Label (1. Oreo, 4. Request, dll) */
+.pill-label {
+  font-weight: 500;
+  color: #643F2D;
+}
+
+/* 3. Style untuk Harga atau status (Menyesuaikan, +2.000) */
+.price-label {
+  font-weight: 400;       /* Pastikan TIDAK bold */
+  color: #643F2D;
+  text-align: right;
+  margin-left: auto;      /* Kunci utama agar selalu di kanan */
+  white-space: nowrap;    /* Mencegah teks turun ke bawah jika layar sempit */
+}
+
+/* 4. Pastikan .option-pill menggunakan flex agar .pill-content bisa bekerja */
+.option-pill {
   display: flex;
   align-items: center;
-  gap: 15px;
+  justify-content: space-between;
+  border: 3px solid #EB7337;
+  border-radius: 30px;
+  padding: 15px 20px;
+  width: 100%;
+  cursor: pointer;
 }
 
-/* Kotak Ceklis & Radio Buatan Sendiri */
-.check-box, .radio-box {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #5D3E29;
+/* 2. Style untuk teks harga/keterangan */
+.price-label {
+  font-weight: 400;       /* Menghilangkan efek bold */
+  margin-left: auto;      /* Mendorong harga ke sisi kanan */
+  margin-right: 15px;     /* Memberi jarak sebelum ikon ceklis */
+  color: #643F2D;
+  font-size: 16px;        /* Sesuaikan ukuran jika perlu */
+}
+
+/* 3. Perbaikan Header Produk (Sesuai request sebelumnya) */
+.product-text-header { 
+  display: flex; 
+  justify-content: space-between; 
+  align-items: center; 
+  width: 100%; 
+}
+
+.product-title { 
+  margin: 0; 
+  font-size: 24px; 
+  font-weight: 400; /* Judul tidak bold */
+  color: #643F2D; 
+}
+
+.product-qty { 
+  font-size: 18px; 
+  font-weight: 400; 
+  color: #643F2D; 
+}
+
+.product-price { 
+  color: #EB7337; 
+  font-size: 20px; 
+  margin: 5px 0; 
+  font-weight: 500; 
+}
+
+.back-btn-floated {
+  position: absolute;
+  left: -80px;
+  top: 0;
+
+  width: 50px;
+  height: 50px;
+
+  border: none;
+  border-radius: 50%;
+
+  background-color: #EB7337;
+
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  font-weight: bold;
+
+  cursor: pointer;
+  z-index: 5;
+
+  padding: 0;
 }
 
-.check-box {
-  border-radius: 4px; /* Kotak */
+.back-arrow-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
+/* Elemen Tambahan */
+.edit-icon { width: 20px; height: 20px; cursor: pointer; margin-left: 10px; }
 .radio-box {
-  border-radius: 50%; /* Bulat */
+  width: 20px; height: 20px; 
+  border: 2px solid #643F2D;
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
 }
-
-.radio-box.active {
-  background-color: #ED7D31;
-  border-color: #ED7D31;
-  color: white;
-}
+.radio-box.active { background-color: #EB7337; border-color: #EB7337; color: white; }
 
 /* Tombol Pesan */
-.submit-section {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 20px;
-}
-
 .btn-pesan {
-  background-color: #ED7D31;
-  color: #5D3E29;
+  background-color: #EB7337; 
+  color: #342118; 
   border: none;
-  border-radius: 25px;
-  padding: 15px 60px;
-  font-size: 18px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: transform 0.2s;
-}
-
-.btn-pesan:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 8px rgba(0,0,0,0.2);
+  border-radius: 30px; 
+  padding: 15px 50px; 
+  font-size: 16px;
+  cursor: pointer; 
+  font-family: 'Mitr', sans-serif;
 }
