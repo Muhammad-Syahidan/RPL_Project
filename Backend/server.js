@@ -25,7 +25,6 @@ app.use('/api/menus', menuRoutes); // <-- Aktifkan route menu
 app.get('/api/test', (req, res) => {
   res.json({ message: "Halo! Server backend Shan's Cake sudah berhasil berjalan!" });
 });
-
-app.listen(PORT, () => {
+Capp.listen(PORT, () => {
   console.log(`Server sedang berjalan di http://localhost:${PORT}`);
 });
