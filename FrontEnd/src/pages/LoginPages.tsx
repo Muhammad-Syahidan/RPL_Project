@@ -1,29 +1,33 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // 1. Tambahkan import ini
+import { useNavigate } from 'react-router-dom';
 import './LoginPages.css';
 
 import browniesBg from '../assets/browniesFull.png';
-import logo from '../assets/logo.png';
 import browniesLapis from '../assets/browniesLapis.png';
 import backgroundBulat from '../assets/background_bulat.png';
 
-import googleIcon from '../assets/googleLogo.png';
-import facebookIcon from '../assets/facebookLogo.png';
-import xIcon from '../assets/Xlogo.png';
-
 export default function LoginPages() {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const navigate = useNavigate(); // 2. Inisialisasi navigate
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
-  const handleSendOTP = (e: React.FormEvent) => {
+  const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Logika pengiriman nomor telepon bisa ditaruh di sini
-    const fullNumber = `+62${phoneNumber}`;
-    console.log(fullNumber);
+    // Validasi input
+    if (!username || !password) {
+      alert('Username dan password harus diisi');
+      return;
+    }
 
-    // 3. Navigasi ke halaman OTP
-    navigate('/otp'); 
+    // TODO: Implementasi logic login dengan backend
+    console.log('Login attempt:', { username, password });
+    
+    // Simulasi login berhasil - ubah sesuai kebutuhan
+    if (username && password) {
+      navigate('/dashboard');
+    }
   };
 
   return (
@@ -39,44 +43,47 @@ export default function LoginPages() {
         {/* RIGHT SIDE */}
         <div className="login-form-section">
           <div className="header-wrapper">
-            <h1 className="title">Halo,<br />Brownie!</h1>
-            <img src={logo} className="logo" alt="logo" />
+            <h1 className="title">Admin<br />Login</h1>
+            <div className="logo-icon">👁️</div>
           </div>
 
-          <form onSubmit={handleSendOTP} className="form-container">
-            <label className="input-label">Masukkan Nomor Whatsapp :</label>
-
+          <form onSubmit={handleLogin} className="form-container">
+            {/* Username Input */}
+            <label className="input-label">Username :</label>
             <div className="input-group">
-              <span className="flag-icon">🇮🇩</span>
-              <span className="country-code">+62</span>
               <input
-                type="tel"
-                className="phone-input"
-                placeholder="812-3456-7890"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value.replace(/\D/g, ''))}
+                type="text"
+                className="text-input"
+                placeholder="Masukkan username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
               />
             </div>
 
-            <button type="submit" className="btn-submit">
-              Kirim kode OTP
-            </button>
-          </form>
-
-          <div className="social-login-section">
-            <p className="social-text">Atau login <span>menggunakan</span></p>
-            <div className="social-icons">
-              <button className="social-btn">
-                <img src={googleIcon} alt="Google" />
-              </button>
-              <button className="social-btn">
-                <img src={facebookIcon} alt="Facebook" />
-              </button>
-              <button className="social-btn">
-                <img src={xIcon} alt="X" />
+            {/* Password Input */}
+            <label className="input-label">Password :</label>
+            <div className="input-group password-group">
+              <input
+                type={showPassword ? 'text' : 'password'}
+                className="text-input"
+                placeholder="Masukkan password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <button
+                type="button"
+                className="toggle-password"
+                onClick={() => setShowPassword(!showPassword)}
+                title={showPassword ? 'Sembunyikan' : 'Tampilkan'}
+              >
+                {showPassword ? 'Sembunyikan' : 'Tampilkan'}
               </button>
             </div>
-          </div>
+
+            <button type="submit" className="btn-submit">
+              Login
+            </button>
+          </form>
 
           <div className="bottom-decoration">
             <img src={backgroundBulat} className="circle-bg" alt="" />
