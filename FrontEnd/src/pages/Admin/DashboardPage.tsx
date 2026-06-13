@@ -51,11 +51,6 @@ export default function DashboardPage() {
           </button>
         </div>
 
-        <div className="admin-dashboard-logout-section">
-          <button className="admin-dashboard-btn-logout" onClick={handleLogout}>
-            Logout
-          </button>
-        </div>
       </div>
     </div>
   );

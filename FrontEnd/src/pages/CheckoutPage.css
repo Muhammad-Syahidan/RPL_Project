@@ -41,111 +41,83 @@
   border-radius: 50%;
   cursor: pointer;
   z-index: 5;
-  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
 }
+.back-arrow-icon { width: 24px; height: 24px; object-fit: contain; }
 
-/* Layout Produk */
-.product-info-wrapper { display: flex; gap: 20px; align-items: flex-start; }
-.product-img-box { width: 250px; height: 250px; background-color: #E8D5C4; border-radius: 20px; overflow: hidden; flex-shrink: 0; }
+/* Layout Produk (Dibuat vertikal agar bisa banyak item) */
+.product-info-wrapper { display: flex; flex-direction: column; gap: 20px; margin-bottom: 20px; }
+.product-img-box { width: 80px; height: 80px; background-color: #E8D5C4; border-radius: 10px; overflow: hidden; flex-shrink: 0; }
 .product-img-box img { width: 100%; height: 100%; object-fit: cover; }
 .product-text-details { flex: 1; display: flex; flex-direction: column; }
 
-/* 1. Header Produk (Judul Kiri, x1 Kanan) */
-.product-text-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  width: 100%; 
-  margin-bottom: 5px;
-}
+/* 1. Header Produk */
+.product-text-header { display: flex; justify-content: space-between; align-items: center; width: 100%; }
 
-/* 2. Judul Produk (Normal, tidak bold) */
-.product-title { 
-  margin: 0; 
-  font-size: 24px; 
-  font-weight: 400; /* Ini kuncinya agar tidak tebal */
-  color: #643F2D; 
-}
+/* 2. Judul Produk */
+.product-title { margin: 0; font-size: 20px; font-weight: 400; color: #643F2D; }
 
-/* 3. Jumlah Produk (x1) */
-.product-qty { 
-  font-size: 18px; 
-  font-weight: 400; 
-  color: #643F2D; 
-}
+/* 3. Jumlah Produk */
+.product-qty { font-size: 18px; font-weight: 400; color: #643F2D; }
 
-/* 4. Harga (Warna oranye) */
-.product-price { 
-  color: #EB7337; 
-  font-size: 20px; 
-  margin: 5px 0; 
-  font-weight: 500; 
-}
+/* 4. Harga */
+.product-price { color: #EB7337; font-size: 18px; margin: 2px 0; font-weight: 500; }
 
-/* 5. Teks Harga Topping/Opsi (Biar seragam) */
-.price-text { 
-  font-size: 16px; 
-  font-weight: 500; 
-  margin-left: 8px; 
-  color: #643F2D; 
-}
-
-/* 6. Pastikan Input Nama Pemesan tetap rapi (Oval Panjang) */
+/* 6. Input Nama Pemesan */
 .input-nama-box {
   border: 2px solid #EB7337;
   border-radius: 50px;
-  padding: 15px 20px;
+  padding: 12px 20px;
   background-color: transparent;
   color: #643F2D;
   width: 100%;
-  margin-top: 5px;
-  margin-bottom: 20px;
+  margin-top: 10px;
   box-sizing: border-box;
   font-family: 'Mitr', sans-serif;
 }
 
-/* KOTAK PILIHAN (Toppings, Alamat, Pengiriman, Pembayaran) */
+/* KOTAK PILIHAN */
 .checkout-form { display: flex; flex-direction: column; gap: 20px; }
 .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 
+/* Alamat Dinamis (Textarea) */
 .alamat-container {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   border: 3px solid #EB7337;
   border-radius: 30px;
   padding: 15px 20px;
-  width: 100%;             /* Penting: agar membentang penuh */
-  box-sizing: border-box;  /* Penting: agar padding tidak menambah lebar melebihi 100% */
+  width: 100%;
+  box-sizing: border-box;
   background: transparent;
-  margin-bottom: 20px;     /* Memberi jarak sebelum Opsi Pengiriman */
+  margin-bottom: 20px;
+}
+.alamat-textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  resize: none;
+  font-family: 'Mitr', sans-serif;
+  color: #643F2D;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.4;
 }
 
-/* 1. Pembungkus isi di dalam pill agar rapi (Kiri untuk Label, Kanan untuk Harga) */
+/* 1. Pembungkus isi pill */
 .pill-content {
   display: flex;
-  justify-content: space-between; /* Mendorong label ke kiri, harga/status ke kanan */
+  justify-content: space-between;
   align-items: center;
   width: 100%;
-  padding-right: 15px; /* Memberi jarak agar tidak menempel ke tombol radio */
+  padding-right: 15px;
 }
 
-/* 2. Style untuk Label (1. Oreo, 4. Request, dll) */
-.pill-label {
-  font-weight: 500;
-  color: #643F2D;
-}
-
-/* 3. Style untuk Harga atau status (Menyesuaikan, +2.000) */
-.price-label {
-  font-weight: 400;       /* Pastikan TIDAK bold */
-  color: #643F2D;
-  text-align: right;
-  margin-left: auto;      /* Kunci utama agar selalu di kanan */
-  white-space: nowrap;    /* Mencegah teks turun ke bawah jika layar sempit */
-}
-
-/* 4. Pastikan .option-pill menggunakan flex agar .pill-content bisa bekerja */
+/* 4. Option Pill */
 .option-pill {
   display: flex;
   align-items: center;
@@ -155,76 +127,21 @@
   padding: 15px 20px;
   width: 100%;
   cursor: pointer;
+  box-sizing: border-box;
 }
 
-/* 2. Style untuk teks harga/keterangan */
+/* Harga di dalam Pill */
 .price-label {
-  font-weight: 400;       /* Menghilangkan efek bold */
-  margin-left: auto;      /* Mendorong harga ke sisi kanan */
-  margin-right: 15px;     /* Memberi jarak sebelum ikon ceklis */
+  font-weight: 400;
   color: #643F2D;
-  font-size: 16px;        /* Sesuaikan ukuran jika perlu */
+  margin-left: auto;
+  margin-right: 15px;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
-/* 3. Perbaikan Header Produk (Sesuai request sebelumnya) */
-.product-text-header { 
-  display: flex; 
-  justify-content: space-between; 
-  align-items: center; 
-  width: 100%; 
-}
-
-.product-title { 
-  margin: 0; 
-  font-size: 24px; 
-  font-weight: 400; /* Judul tidak bold */
-  color: #643F2D; 
-}
-
-.product-qty { 
-  font-size: 18px; 
-  font-weight: 400; 
-  color: #643F2D; 
-}
-
-.product-price { 
-  color: #EB7337; 
-  font-size: 20px; 
-  margin: 5px 0; 
-  font-weight: 500; 
-}
-
-.back-btn-floated {
-  position: absolute;
-  left: -80px;
-  top: 0;
-
-  width: 50px;
-  height: 50px;
-
-  border: none;
-  border-radius: 50%;
-
-  background-color: #EB7337;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  z-index: 5;
-
-  padding: 0;
-}
-
-.back-arrow-icon {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
-/* Elemen Tambahan */
-.edit-icon { width: 20px; height: 20px; cursor: pointer; margin-left: 10px; }
+/* Ikon & Radio */
+.edit-icon { width: 20px; height: 20px; cursor: pointer; flex-shrink: 0; margin-top: 2px; }
 .radio-box {
   width: 20px; height: 20px; 
   border: 2px solid #643F2D;
@@ -232,6 +149,7 @@
   display: flex; 
   align-items: center; 
   justify-content: center;
+  flex-shrink: 0;
 }
 .radio-box.active { background-color: #EB7337; border-color: #EB7337; color: white; }
 

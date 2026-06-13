@@ -34,13 +34,13 @@ export default function LandingPage() {
         
         {/* Menu Navigasi Atas */}
         <div className="top-navigation">
-          {/* Navigasi Account diarahkan ke /account */}
+          {/* Navigasi diarahkan ke /check-order */}
           <span 
             className="nav-account" 
-            onClick={() => navigate('/account')}
+            onClick={() => navigate('/check-order')}
             style={{ cursor: 'pointer' }}
           >
-            Account
+            Cek Pesanan
           </span>
           
           <img src={logoBenarImg} alt="Shan's Bakery & Cake Logo" className="baker-logo-landing" />

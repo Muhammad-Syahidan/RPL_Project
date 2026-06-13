@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+
+.account-container {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #FFF6DA;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.account-bg-pattern {
+  position: absolute;
+  top: 40%;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url('../assets/Decoration Background.png');
+  background-repeat: repeat;
+  background-size: 1525px;
+}
+
+.deco-drip {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 400px;
+  z-index: 1;
+}
+
+.account-content {
+  position: relative;
+  z-index: 2;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.acc-title {
+  font-family: 'Mochiy Pop One', sans-serif;
+  font-size: 46px;
+  color: #4A2E1B;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* SEARCH BAR */
+.search-container {
+  display: flex;
+  align-items: center;
+  background-color: #FFF6DA;
+  border: 2.5px solid #EB7337;
+  border-radius: 40px;
+  padding: 8px 20px;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.search-container input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Mitr', sans-serif;
+  font-size: 18px;
+  color: #4A2E1B;
+  padding: 5px;
+}
+
+.btn-search {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+/* PEMISAH & TEKS */
+.divider {
+  width: 78%;
+  height: 2px;            /* Garis lebih tipis */
+  background-color: #4A2E1B;
+  border: none;
+  margin: 30px auto 15px auto; 
+  opacity: 1;
+}
+
+.subtitle-bottom {
+  text-align: center;
+  font-family: 'Mitr', sans-serif;
+  color: #6A432C;
+  margin-top: 5px;
+  margin-bottom: 25px;
+  font-size: 16px;
+}
+
+/* CARD & BUTTON */
+.order-card {
+  width: 100%;
+  border: 2.5px solid #EB7337;
+  border-radius: 28px;
+  padding: 20px;
+  background-color: #FFF6DA;
+  font-family: 'Mitr', sans-serif;
+  color: #6A432C;
+}
+
+.btn-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.btn-action {
+  background-color: #EB7337;
+  color: #342118;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 60px;
+  font-family: 'Mitr', sans-serif;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

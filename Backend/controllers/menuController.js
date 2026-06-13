@@ -1,10 +1,9 @@
 const db = require('../config/db');
 
-// Fungsi mengambil data produk (untuk ditampilkan di catalog)
+// Fungsi mengambil semua menu
 const getAllMenus = async (req, res) => {
   try {
-    // Sesuaikan nama tabel ke 'produk'
-    const [produk] = await db.query('SELECT * FROM produk'); 
+    const [produk] = await db.query('SELECT * FROM produk');
     res.status(200).json(produk);
   } catch (error) {
     console.error('Error:', error.message);
@@ -12,19 +11,47 @@ const getAllMenus = async (req, res) => {
   }
 };
 
-// Fungsi BARU: Menambahkan produk dari halaman Admin
-const createMenu = async (req, res) => {
-  // Sesuaikan variabel dengan nama kolom baru: nama_varian, deskripsi_topping, harga, stok
-  const { nama_varian, deskripsi_topping, harga, stok } = req.body;
-  
-  // Jika ada file yang diupload, simpan namanya ke kolom 'foto'
-  const foto = req.file ? `http://localhost:5000/uploads/${req.file.filename}` : '';
+// Fungsi ambil data per ID
+const getMenuById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const [produk] = await db.query('SELECT * FROM produk WHERE id_produk = ?', [id]);
+    if (produk.length === 0) return res.status(404).json({ message: 'Produk tidak ditemukan' });
+    res.status(200).json(produk[0]);
+  } catch (error) {
+    res.status(500).json({ message: 'Gagal mengambil data produk.' });
+  }
+};
+
+// Fungsi Update data
+const updateMenu = async (req, res) => {
+  const { id } = req.params;
+  const { nama_varian, harga } = req.body;
+  const foto = req.file ? req.file.filename : null;
 
   try {
-    // Sesuaikan Query INSERT ke tabel 'produk' dan kolom-kolom barunya
+    if (foto) {
+      const query = 'UPDATE produk SET nama_varian = ?, harga = ?, foto = ? WHERE id_produk = ?';
+      await db.query(query, [nama_varian, harga, foto, id]);
+    } else {
+      const query = 'UPDATE produk SET nama_varian = ?, harga = ? WHERE id_produk = ?';
+      await db.query(query, [nama_varian, harga, id]);
+    }
+    res.status(200).json({ message: 'Produk berhasil diperbarui!' });
+  } catch (error) {
+    console.error('Error saat update:', error.message);
+    res.status(500).json({ message: 'Gagal update produk.' });
+  }
+};
+
+// Fungsi tambah menu baru
+const createMenu = async (req, res) => {
+  const { nama_varian, deskripsi_topping, harga, stok } = req.body;
+  const foto = req.file ? req.file.filename : ''; 
+
+  try {
     const query = 'INSERT INTO produk (nama_varian, deskripsi_topping, harga, stok, foto) VALUES (?, ?, ?, ?, ?)';
     await db.query(query, [nama_varian, deskripsi_topping || '', harga, stok || 0, foto]);
-    
     res.status(201).json({ message: 'Produk baru berhasil ditambahkan!' });
   } catch (error) {
     console.error('Error saat tambah produk:', error.message);
@@ -32,4 +59,24 @@ const createMenu = async (req, res) => {
   }
 };
 
-module.exports = { getAllMenus, createMenu };
+// FUNGSI DELETE (yang tadi hilang)
+const deleteMenu = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const query = 'DELETE FROM produk WHERE id_produk = ?';
+    await db.query(query, [id]);
+    res.status(200).json({ message: 'Produk berhasil dihapus!' });
+  } catch (error) {
+    console.error('Error saat hapus:', error.message);
+    res.status(500).json({ message: 'Gagal menghapus produk.' });
+  }
+};
+
+// Pastikan semua fungsi di-export ke routes
+module.exports = { 
+  getAllMenus, 
+  getMenuById, 
+  updateMenu, 
+  createMenu, 
+  deleteMenu 
+};
