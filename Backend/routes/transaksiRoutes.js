@@ -21,7 +21,7 @@ router.post('/', async (req, res) => {
 
         const sqlTransaksi = `INSERT INTO transaksi 
             (kode_pesanan, nama_pelanggan, nomor_whatsapp, alamat_pengiriman, opsi_pengiriman, metode_pembayaran, total_bayar, status) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, 'Proses')`;
+            VALUES (?, ?, ?, ?, ?, ?, ?, 'Diterima')`;
         
         const [result] = await connection.execute(sqlTransaksi, [
             order_id, nama, noHp, alamat, pengiriman, pembayaran, totalHarga

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400;500;600;700&family=Mochiy+Pop+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mitr:wght@200;300;400&family=Mochiy+Pop+One&display=swap');
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -25,26 +25,23 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Tombol Login tetap tepat di tengah */
+  justify-content: center;
   align-items: center;
   position: relative;
 }
 
-/* Mengatur posisi Logo dan Teks secara independen */
 .admin-login-header-absolute {
   position: absolute;
   top: 80px; 
   display: flex;
   flex-direction: row; 
-  align-items: center; /* Menjaga vertikal sejajar */
+  align-items: center;
   justify-content: center;
-  gap: 0px;
 }
 
 .admin-login-logo-img {
   width: 200px; 
   height: auto;
-  /* Jika logo terlalu turun dibanding teks, kurangi angka ini */
   transform: translateY(-5px); 
 }
 
@@ -55,22 +52,64 @@
   margin: 0;
 }
 
-.admin-login-btn-submit {
-  width: 260px;
-  height: 70px;
-  border: 3px solid #eb742d;
-  border-radius: 999px;
-  background: transparent;
-  color: #eb742d;
-  font-size: 24px;
-  font-family: 'Mitr', sans-serif;
-  cursor: pointer;
-  transition: 0.3s;
+.admin-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
   z-index: 3;
 }
 
-.admin-login-btn-submit:hover { background-color: #eb742d; color: #fff; }
+/* Input Fields - Proporsional */
+.admin-login-input {
+  width: 450px;
+  height: 50px;
+  padding: 0 45px 0 25px;
+  border: 2px solid #eb742d;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.7);
+  font-family: 'Mitr', sans-serif;
+  font-size: 16px;
+  color: #6a432c;
+}
 
+.admin-password-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.admin-toggle-password {
+  position: absolute;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #eb742d;
+}
+
+/* Tombol Login - Solid, Oval, Ukuran Pas */
+.admin-login-btn-submit {
+  width: 200px;
+  height: 45px;
+  border: none;
+  border-radius: 999px;
+  background: #eb742d; /* Warna Solid */
+  color: #342118;      /* Teks Gelap */
+  font-size: 18px;
+  font-family: 'Mitr', sans-serif;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.admin-login-btn-submit:hover { 
+  background-color: #d16526;
+  transform: translateY(-2px);
+}
+
+/* Dekorasi */
 .admin-orange-circle-decoration {
   position: absolute;
   bottom: -40px;

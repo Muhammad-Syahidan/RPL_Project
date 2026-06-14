@@ -6,7 +6,6 @@ export default function DashboardPage() {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Tambahkan logika hapus token/session di sini jika ada
     navigate('/admin/login');
   };
 
@@ -26,31 +25,21 @@ export default function DashboardPage() {
         </h1>
 
         <div className="admin-dashboard-menu-list">
-          {/* Tombol Menu */}
-          <button 
-            className="admin-dashboard-menu-btn" 
-            onClick={() => navigate('/admin/menu')}
-          >
+          <button className="admin-dashboard-menu-btn" onClick={() => navigate('/admin/menu')}>
             Menu
           </button>
-
-          {/* Tombol Status Pemesanan */}
-          <button 
-            className="admin-dashboard-menu-btn" 
-            onClick={() => navigate('/admin/order-status')}
-          >
+          <button className="admin-dashboard-menu-btn" onClick={() => navigate('/admin/order-status')}>
             Status Pemesanan
           </button>
-
-          {/* Tombol Laporan */}
-          <button 
-            className="admin-dashboard-menu-btn"
-            onClick={() => navigate('/admin/report')}
-          >
+          <button className="admin-dashboard-menu-btn" onClick={() => navigate('/admin/report')}>
             Laporan
           </button>
         </div>
 
+        {/* Tombol Logout (Lebih kecil) */}
+        <button className="admin-dashboard-btn-logout" onClick={handleLogout}>
+          Logout
+        </button>
       </div>
     </div>
   );

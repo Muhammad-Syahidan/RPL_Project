@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path'); 
 const db = require('./config/db'); 
+
+// Import tabel (tetap ada di sini agar siap dipakai)
 const { createUserTable } = require('./models/User');
 const { createMenuTable } = require('./models/Menu');
 
@@ -16,12 +18,21 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Melayani file gambar dari folder uploads
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Inisialisasi tabel
-createUserTable();
-createMenuTable();
+// LOGIKA DATABASE (Saat ini dinonaktifkan agar terminal bersih)
+const initDatabase = async () => {
+  try {
+    // Hilangkan tanda // di bawah ini jika butuh menjalankan inisialisasi tabel:
+    // await createUserTable();
+    // await createMenuTable();
+    // console.log("Database siap!");
+  } catch (error) {
+    console.error("Gagal menginisialisasi database:", error);
+  }
+};
+// Panggil fungsi jika ingin menjalankan inisialisasi
+// initDatabase(); 
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -32,7 +43,6 @@ app.get('/api/test', (req, res) => {
   res.json({ message: "Halo! Server backend Shan's Cake sudah berhasil berjalan!" });
 });
 
-// Rute Laporan (Diperbarui dengan GROUP_CONCAT agar nama produk tidak kosong)
 app.get('/api/laporan', async (req, res) => {
   try {
     const sql = `

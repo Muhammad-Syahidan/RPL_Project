@@ -21,7 +21,6 @@
 .admin-dashboard-bg-pattern {
   position: absolute;
   inset: 0;
-  /* Path keluar dari folder Admin dan Pages menuju folder assets */
   background-image: url('../../assets/BgPattern.png');
   background-size: cover;
   background-position: center;
@@ -72,6 +71,7 @@
   width: 100%;
 }
 
+/* Style untuk tombol Menu, Status, Laporan */
 .admin-dashboard-menu-btn {
   width: 100%;
   background-color: rgba(255, 243, 224, 0.85);
@@ -91,20 +91,24 @@
   transform: translateY(-2px);
 }
 
+/* Style untuk tombol Logout (Kecil) */
 .admin-dashboard-btn-logout {
   background-color: #EB7337;
-  color: #4A2E1B;
+  color: #342118;
   border: none;
-  border-radius: 25px;
-  padding: 12px 60px;
-  font-size: 18px;
+  border-radius: 30px;
+  padding: 10px 40px; /* Padding lebih kecil agar tombol tidak selebar menu */
+  font-size: 16px;    /* Font lebih kecil agar tidak mendominasi */
   font-family: 'Mitr', sans-serif;
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
   transition: all 0.2s ease;
+  margin-top: 10px;
+  display: block;
 }
 
 .admin-dashboard-btn-logout:hover {
+  background-color: #d1622b;
   transform: translateY(-2px);
   box-shadow: 0 6px 8px rgba(0,0,0,0.2);
 }

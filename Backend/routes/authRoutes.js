@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { loginUser } = require('../controllers/authController');
+// Import fungsi loginAdmin yang sudah kita buat di controller
+const { loginAdmin } = require('../controllers/authController');
 
-// Membuat URL: POST /api/auth/login
-router.post('/login', loginUser);
+// Rute untuk Login Admin
+// URL akan menjadi: POST /api/auth/admin/login
+router.post('/admin/login', loginAdmin);
 
 module.exports = router;

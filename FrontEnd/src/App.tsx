@@ -8,7 +8,7 @@ import CheckOrderPage from './pages/CheckOrderPage';
 import AdminLoginPage from './pages/Admin/AdminLoginPage';
 import AdminDashboard from './pages/Admin/DashboardPage'; 
 import AdminMenuPage from './pages/Admin/AdminMenuPage';
-import ReportPage from './pages/Admin/ReportPage'; // Pastikan file ini ada
+import ReportPage from './pages/Admin/ReportPage';
 import AddMenuPage from './pages/Admin/AddMenuPage';
 import EditMenuPage from './pages/Admin/EditMenuPage';
 import AdminOrderStatusPage from './pages/Admin/AdminOrderStatusPage';
@@ -16,6 +16,7 @@ import AdminOrderStatusPage from './pages/Admin/AdminOrderStatusPage';
 function App() {
   return (
     <Routes>
+      {/* Public Pages */}
       <Route path="/" element={<LandingPage />} />
       <Route path="/home" element={<LandingPage />} />
       <Route path="/menu" element={<MenuPage />} />
@@ -25,7 +26,11 @@ function App() {
       <Route path="/check-order" element={<CheckOrderPage />} />
       
       {/* Alur Admin */}
+      {/* Akses /admin atau /admin/login akan menampilkan halaman Login */}
       <Route path="/admin" element={<AdminLoginPage />} />
+      <Route path="/admin/login" element={<AdminLoginPage />} />
+      
+      {/* Halaman setelah Login */}
       <Route path="/admin/dashboard" element={<AdminDashboard />} />
       <Route path="/admin/menu" element={<AdminMenuPage />} />
       <Route path="/admin/report" element={<ReportPage />} />
