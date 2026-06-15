@@ -12,6 +12,7 @@ import ReportPage from './pages/Admin/ReportPage';
 import AddMenuPage from './pages/Admin/AddMenuPage';
 import EditMenuPage from './pages/Admin/EditMenuPage';
 import AdminOrderStatusPage from './pages/Admin/AdminOrderStatusPage';
+import AdminProtectedRoute from './pages/Admin/AdminProtectedRoute';
 
 function App() {
   return (
@@ -31,12 +32,54 @@ function App() {
       <Route path="/admin/login" element={<AdminLoginPage />} />
       
       {/* Halaman setelah Login */}
-      <Route path="/admin/dashboard" element={<AdminDashboard />} />
-      <Route path="/admin/menu" element={<AdminMenuPage />} />
-      <Route path="/admin/report" element={<ReportPage />} />
-      <Route path="/admin/tambah-menu" element={<AddMenuPage />} />
-      <Route path="/admin/edit-menu/:id" element={<EditMenuPage />} />
-      <Route path="/admin/order-status" element={<AdminOrderStatusPage />} />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <AdminProtectedRoute>
+            <AdminDashboard />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/menu"
+        element={
+          <AdminProtectedRoute>
+            <AdminMenuPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/report"
+        element={
+          <AdminProtectedRoute>
+            <ReportPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/tambah-menu"
+        element={
+          <AdminProtectedRoute>
+            <AddMenuPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/edit-menu/:id"
+        element={
+          <AdminProtectedRoute>
+            <EditMenuPage />
+          </AdminProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin/order-status"
+        element={
+          <AdminProtectedRoute>
+            <AdminOrderStatusPage />
+          </AdminProtectedRoute>
+        }
+      />
     </Routes>
   );
 }

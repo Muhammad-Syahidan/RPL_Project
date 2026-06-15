@@ -26,16 +26,16 @@ const getMenuById = async (req, res) => {
 // Fungsi Update data
 const updateMenu = async (req, res) => {
   const { id } = req.params;
-  const { nama_varian, harga } = req.body;
+  const { nama_varian, deskripsi_topping, harga } = req.body;
   const foto = req.file ? req.file.filename : null;
 
   try {
     if (foto) {
-      const query = 'UPDATE produk SET nama_varian = ?, harga = ?, foto = ? WHERE id_produk = ?';
-      await db.query(query, [nama_varian, harga, foto, id]);
+      const query = 'UPDATE produk SET nama_varian = ?, deskripsi_topping = ?, harga = ?, foto = ? WHERE id_produk = ?';
+      await db.query(query, [nama_varian, deskripsi_topping || '', harga, foto, id]);
     } else {
-      const query = 'UPDATE produk SET nama_varian = ?, harga = ? WHERE id_produk = ?';
-      await db.query(query, [nama_varian, harga, id]);
+      const query = 'UPDATE produk SET nama_varian = ?, deskripsi_topping = ?, harga = ? WHERE id_produk = ?';
+      await db.query(query, [nama_varian, deskripsi_topping || '', harga, id]);
     }
     res.status(200).json({ message: 'Produk berhasil diperbarui!' });
   } catch (error) {
@@ -46,12 +46,17 @@ const updateMenu = async (req, res) => {
 
 // Fungsi tambah menu baru
 const createMenu = async (req, res) => {
-  const { nama_varian, deskripsi_topping, harga, stok } = req.body;
+  // 1. Hapus 'stok' dari req.body
+  const { nama_varian, deskripsi_topping, harga } = req.body;
   const foto = req.file ? req.file.filename : ''; 
 
   try {
-    const query = 'INSERT INTO produk (nama_varian, deskripsi_topping, harga, stok, foto) VALUES (?, ?, ?, ?, ?)';
-    await db.query(query, [nama_varian, deskripsi_topping || '', harga, stok || 0, foto]);
+    // 2. Hapus 'stok' dari daftar kolom dan kurangi jumlah tanda '?'
+    const query = 'INSERT INTO produk (nama_varian, deskripsi_topping, harga, foto) VALUES (?, ?, ?, ?)';
+    
+    // 3. Pastikan urutan dan jumlah data sesuai dengan kolom di atas
+    await db.query(query, [nama_varian, deskripsi_topping || '', harga, foto]);
+    
     res.status(201).json({ message: 'Produk baru berhasil ditambahkan!' });
   } catch (error) {
     console.error('Error saat tambah produk:', error.message);

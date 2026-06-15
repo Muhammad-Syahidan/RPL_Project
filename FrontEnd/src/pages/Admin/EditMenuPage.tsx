@@ -12,6 +12,7 @@ export default function EditMenuPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [namaMenu, setNamaMenu] = useState('');
+  const [deskripsiMenu, setDeskripsiMenu] = useState('');
   const [hargaMenu, setHargaMenu] = useState('');
   const [fotoLama, setFotoLama] = useState('');
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -22,6 +23,7 @@ export default function EditMenuPage() {
       try {
         const res = await axios.get(`http://localhost:5000/api/menus/${id}`);
         setNamaMenu(res.data.nama_varian);
+        setDeskripsiMenu(res.data.deskripsi_topping || '');
         setHargaMenu(res.data.harga);
         setFotoLama(res.data.foto);
       } catch (err) {
@@ -35,6 +37,7 @@ export default function EditMenuPage() {
   const handleUpdate = async () => {
     const formData = new FormData();
     formData.append('nama_varian', namaMenu);
+    formData.append('deskripsi_topping', deskripsiMenu);
     formData.append('harga', hargaMenu);
     if (selectedFile) formData.append('foto', selectedFile);
 
@@ -74,6 +77,16 @@ export default function EditMenuPage() {
             <div className="admin-edit-form-group">
               <label>Nama :</label>
               <input className="admin-edit-input" value={namaMenu} onChange={(e) => setNamaMenu(e.target.value)} />
+            </div>
+            <div className="admin-edit-form-group">
+              <label>Deskripsi :</label>
+              <textarea
+                className="admin-edit-input"
+                rows={4}
+                value={deskripsiMenu}
+                onChange={(e) => setDeskripsiMenu(e.target.value)}
+                placeholder="Masukkan deskripsi menu"
+              />
             </div>
             <div className="admin-edit-form-group">
               <label>Harga :</label>

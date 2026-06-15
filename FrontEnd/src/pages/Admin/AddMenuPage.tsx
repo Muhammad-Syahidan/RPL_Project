@@ -1,17 +1,16 @@
 import { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AddMenuPage.css';
-import arrowBack from '../../assets/arrow_back.png';
-import cookieDecorationImg from '../../assets/Cookie Decoration.png';
 import uploadIcon from '../../assets/Upload.png';
+import arrowBackIcon from '../../assets/arrow_back.png';
 
 export default function AddMenuPage() {
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [namaMenu, setNamaMenu] = useState('');
+  const [deskripsiMenu, setDeskripsiMenu] = useState('');
   const [hargaMenu, setHargaMenu] = useState('');
-  const [stok, setStok] = useState('');
   const [fotoNama, setFotoNama] = useState('Upload foto');
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,14 +24,13 @@ export default function AddMenuPage() {
 
     const formData = new FormData();
     formData.append('nama_varian', namaMenu);
+    formData.append('deskripsi_topping', deskripsiMenu);
     formData.append('harga', hargaMenu);
-    formData.append('stok', stok || '0');
     
     const file = fileInputRef.current?.files?.[0];
     if (file) formData.append('foto', file);
 
     try {
-      // Pastikan fetch mengarah ke /api/menus (sesuai server.js)
       const response = await fetch('http://localhost:5000/api/menus', {
         method: 'POST',
         body: formData,
@@ -53,6 +51,9 @@ export default function AddMenuPage() {
 
   return (
     <div className="admin-add-container">
+      {/* Background Pattern */}
+      <div className="admin-add-bg-pattern"></div>
+
       <div className="admin-add-content">
         <h1 className="admin-add-title">Shan's Tambah</h1>
 
@@ -67,8 +68,14 @@ export default function AddMenuPage() {
         </div>
 
         <div className="admin-add-form-group">
-          <label>Stok :</label>
-          <input className="admin-add-input" type="number" value={stok} onChange={(e) => setStok(e.target.value)} />
+          <label>Deskripsi :</label>
+          <textarea
+            className="admin-add-input"
+            rows={4}
+            value={deskripsiMenu}
+            onChange={(e) => setDeskripsiMenu(e.target.value)}
+            placeholder="Masukkan deskripsi menu"
+          />
         </div>
 
         <div className="admin-add-form-group">
@@ -81,7 +88,10 @@ export default function AddMenuPage() {
         </div>
 
         <div className="admin-add-bottom-actions">
-          <button className="admin-add-btn-action" onClick={() => navigate('/admin/menu')}>Kembali</button>
+          <button className="admin-add-btn-action" onClick={() => navigate('/admin/menu')}>
+            <img src={arrowBackIcon} alt="Back" className="admin-add-back-icon" />
+            Kembali
+          </button>
           <button className="admin-add-btn-action" onClick={handleSubmit}>Selesai</button>
         </div>
       </div>

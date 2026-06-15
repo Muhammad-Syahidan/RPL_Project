@@ -3,8 +3,10 @@ const router = express.Router();
 const db = require('../config/db');
 
 router.get('/', async (req, res) => {
+    const { startDate, endDate } = req.query;
+    
     try {
-        const query = `
+        let query = `
             SELECT 
                 t.id_transaksi, 
                 p.nama_produk AS namaProduk, 
@@ -14,9 +16,20 @@ router.get('/', async (req, res) => {
             FROM transaksi t
             JOIN detail_transaksi dt ON t.id_transaksi = dt.id_transaksi
             JOIN produk p ON dt.id_produk = p.id_produk
-            ORDER BY t.tanggal_waktu DESC
         `;
-        const [rows] = await db.execute(query);
+
+        const params = [];
+
+        // Tambahkan filter WHERE jika startDate dan endDate ada
+        if (startDate && endDate) {
+            query += ` WHERE DATE(t.tanggal_waktu) BETWEEN ? AND ?`;
+            params.push(startDate, endDate);
+        }
+
+        query += ` ORDER BY t.tanggal_waktu DESC`;
+
+        // Eksekusi query dengan parameter
+        const [rows] = await db.execute(query, params);
         res.json(rows);
     } catch (err) {
         console.error("Gagal mengambil laporan:", err);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './CheckoutPage.css';
 import backArrow from '../assets/arrow_back.png';
@@ -22,12 +22,23 @@ export default function CheckoutPage() {
     return nama.includes('fudgy brownies') && nama.includes('box');
   });
 
+  // State untuk form
   const [selectedToppings, setSelectedToppings] = useState<number[]>([]);
   const [pengiriman, setPengiriman] = useState('Ambil Sendiri');
   const [pembayaran, setPembayaran] = useState('Transfer');
   const [nama, setNama] = useState('');
   const [noHp, setNoHp] = useState('');
-  const [alamat, setAlamat] = useState(() => localStorage.getItem('shans_user_address') || '');
+  const [alamat, setAlamat] = useState('');
+
+  // useEffect untuk memastikan form selalu bersih saat halaman dimuat
+  useEffect(() => {
+    setNama('');
+    setNoHp('');
+    setAlamat('');
+    setSelectedToppings([]);
+    setPengiriman('Ambil Sendiri');
+    setPembayaran('Transfer');
+  }, []);
 
   const totalToppingHarga = selectedToppings.reduce((acc, id) => {
     const topping = TOPPING_OPTIONS.find((t) => t.id === id);
@@ -35,12 +46,6 @@ export default function CheckoutPage() {
   }, 0);
 
   const finalTotalHarga = totalHargaDasar + totalToppingHarga;
-
-  const handleAlamatChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const value = e.target.value;
-    setAlamat(value);
-    localStorage.setItem('shans_user_address', value);
-  };
 
   const handlePesan = async () => {
     if (!nama.trim() || !noHp.trim()) {
@@ -54,7 +59,6 @@ export default function CheckoutPage() {
 
     const order_id = "ORD-" + Date.now();
     
-    // Perbaikan: Memformat items agar sesuai dengan kebutuhan database
     const formattedItems = keranjang.map((item: any) => ({
       id_produk: item.id_produk,
       jumlah: item.quantity,
@@ -155,7 +159,7 @@ export default function CheckoutPage() {
 
           <label>Alamat :</label>
           <div className="alamat-container">
-            <textarea className="alamat-textarea" value={alamat} onChange={handleAlamatChange} placeholder="Masukkan alamat lengkap pengiriman..." rows={3} />
+            <textarea className="alamat-textarea" value={alamat} onChange={(e) => setAlamat(e.target.value)} placeholder="Masukkan alamat lengkap pengiriman..." rows={3} />
           </div>
 
           <label>Opsi Pengiriman :</label>

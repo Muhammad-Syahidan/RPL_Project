@@ -16,6 +16,16 @@ export default function PaymentPage() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      // Validasi: Hanya izinkan tipe image/jpeg (mencakup .jpg/.jpeg) dan image/png
+      // Ini akan otomatis menolak .gif, .pdf, .docx, dll.
+      const validTypes = ['image/jpeg', 'image/png'];
+      
+      if (!validTypes.includes(file.type)) {
+        alert("Mohon pilih file gambar yang umum (JPG, JPEG, atau PNG)!");
+        setFileName('');
+        if (fileInputRef.current) fileInputRef.current.value = '';
+        return;
+      }
       setFileName(file.name);
     }
   };
@@ -36,7 +46,6 @@ export default function PaymentPage() {
 
     setIsUploading(true);
 
-    // Persiapkan FormData untuk mengirim file
     const formData = new FormData();
     formData.append('bukti', file);
 
@@ -87,15 +96,16 @@ export default function PaymentPage() {
           <p className="section-label">Silahkan Upload Bukti Pembayaran Anda :</p>
           <div className="upload-box" onClick={handleBoxClick}>
             <span className="file-name-display">
-              {fileName ? fileName : 'Klik untuk memilih file'}
+              {fileName ? fileName : 'Klik untuk memilih file (JPG/JPEG/PNG)'}
             </span>
-            <button type="button" className="btn-pilih-files">Pilih Files</button>
+            <button type="button" className="btn-pilih-files">Pilih Foto</button>
             <input
               type="file"
               className="hidden-file-input"
               ref={fileInputRef}
               onChange={handleFileChange}
-              accept="image/*,application/pdf"
+              // Membatasi pilihan file di dialog browser ke tipe gambar umum
+              accept="image/jpeg, image/png"
               style={{ display: 'none' }}
             />
           </div>

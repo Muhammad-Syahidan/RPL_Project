@@ -4,7 +4,7 @@ const cors = require('cors');
 const path = require('path'); 
 const db = require('./config/db'); 
 
-// Import tabel (tetap ada di sini agar siap dipakai)
+// Import tabel
 const { createUserTable } = require('./models/User');
 const { createMenuTable } = require('./models/Menu');
 
@@ -20,19 +20,15 @@ app.use(express.json());
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// LOGIKA DATABASE (Saat ini dinonaktifkan agar terminal bersih)
+// LOGIKA DATABASE
 const initDatabase = async () => {
   try {
-    // Hilangkan tanda // di bawah ini jika butuh menjalankan inisialisasi tabel:
     // await createUserTable();
     // await createMenuTable();
-    // console.log("Database siap!");
   } catch (error) {
     console.error("Gagal menginisialisasi database:", error);
   }
 };
-// Panggil fungsi jika ingin menjalankan inisialisasi
-// initDatabase(); 
 
 // Routes
 app.use('/api/auth', authRoutes);
@@ -43,9 +39,12 @@ app.get('/api/test', (req, res) => {
   res.json({ message: "Halo! Server backend Shan's Cake sudah berhasil berjalan!" });
 });
 
+// ROUTE LAPORAN (DIPERBARUI DENGAN FILTER)
 app.get('/api/laporan', async (req, res) => {
+  const { startDate, endDate } = req.query;
+
   try {
-    const sql = `
+    let sql = `
       SELECT 
         t.id_transaksi, 
         GROUP_CONCAT(p.nama_varian SEPARATOR ', ') AS namaProduk, 
@@ -55,10 +54,19 @@ app.get('/api/laporan', async (req, res) => {
       FROM transaksi t
       LEFT JOIN detail_transaksi dt ON t.id_transaksi = dt.id_transaksi
       LEFT JOIN produk p ON dt.id_produk = p.id_produk
-      GROUP BY t.id_transaksi
-      ORDER BY t.tanggal_waktu DESC
     `;
-    const [rows] = await db.execute(sql);
+
+    const params = [];
+
+    // Logika filter tanggal
+    if (startDate && endDate) {
+      sql += ` WHERE DATE(t.tanggal_waktu) BETWEEN ? AND ?`;
+      params.push(startDate, endDate);
+    }
+
+    sql += ` GROUP BY t.id_transaksi ORDER BY t.tanggal_waktu DESC`;
+
+    const [rows] = await db.execute(sql, params);
     res.json(rows);
   } catch (error) {
     console.error("Gagal mengambil laporan:", error);

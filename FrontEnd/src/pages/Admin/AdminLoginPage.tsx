@@ -25,6 +25,8 @@ export default function AdminLoginPage() {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem('adminLoggedIn', 'true');
+        localStorage.setItem('adminUsername', data.admin?.username || 'admin');
         alert("Login Berhasil!");
         navigate('/admin/dashboard');
       } else {

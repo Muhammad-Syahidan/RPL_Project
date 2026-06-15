@@ -14,7 +14,6 @@ interface MenuData {
   stok: number;
 }
 
-// Interface baru untuk item di dalam keranjang
 interface CartItem extends MenuData {
   quantity: number;
 }
@@ -23,13 +22,10 @@ export default function MenuPage() {
   const navigate = useNavigate();
   const [menus, setMenus] = useState<MenuData[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string>('Semua');
+  const [selectedMenuItem, setSelectedMenuItem] = useState<MenuData | null>(null);
   
-  // State untuk menampung item di keranjang
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    // Ambil data keranjang lama dari localStorage jika ada saat page di-load
-    const savedCart = localStorage.getItem('shans_cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  // Keranjang diset kosong secara default agar reset setiap masuk halaman
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
     const fetchMenus = async () => {
@@ -43,20 +39,12 @@ export default function MenuPage() {
     fetchMenus();
   }, []);
 
-  // Sinkronisasikan data keranjang ke localStorage setiap kali ada perubahan data di state 'cart'
-  useEffect(() => {
-    localStorage.setItem('shans_cart', JSON.stringify(cart));
-  }, [cart]);
-
   const formatRupiah = (angka: number) => {
     return new Intl.NumberFormat('id-ID', {
       style: 'currency', currency: 'IDR', maximumFractionDigits: 0
     }).format(angka || 0);
   };
 
-  // --- FUNGSI LOGIKA KERANJANG ---
-  
-  // 1. Tambah ke keranjang / Naikkan quantity (+1)
   const addToCart = (product: MenuData) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id_produk === product.id_produk);
@@ -71,7 +59,14 @@ export default function MenuPage() {
     });
   };
 
-  // 2. Kurangi kuantitas item (-1) / hapus jika quantity mencapai 0
+  const openMenuCard = (menu: MenuData) => {
+    setSelectedMenuItem(menu);
+  };
+
+  const closeMenuCard = () => {
+    setSelectedMenuItem(null);
+  };
+
   const removeFromCart = (productId: number) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item.id_produk === productId);
@@ -86,25 +81,21 @@ export default function MenuPage() {
     });
   };
 
-  // 3. Menghitung total item yang ada di keranjang untuk lencana/badge angka
   const getTotalItems = () => {
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
-  // 4. Menghitung total harga belanjaan
   const getTotalPrice = () => {
     return cart.reduce((total, item) => total + (item.harga * item.quantity), 0);
   };
 
-  // 5. Fungsi navigasi ke halaman checkout dengan membawa seluruh isi keranjang
   const handleCheckout = () => {
     if (cart.length === 0) return alert("Keranjang kamu masih kosong!");
     navigate('/checkout', { state: { infoKeranjang: cart, totalHarga: getTotalPrice() } });
   };
 
-  // 6. Fungsi untuk mengarahkan ke WhatsApp
   const handleWhatsAppChat = () => {
-    window.open('https://wa.me/6282291323396', '_blank'); // Silakan ganti nomor WA Anda di sini
+    window.open('https://wa.me/6282291323396', '_blank');
   };
 
   const categories = ['Semua', 'Fudgy Brownies', 'Mini Cake', 'Churros', 'Cookies'];
@@ -128,7 +119,6 @@ export default function MenuPage() {
       <div className="menu-content">
         <h1 className="menu-title">Shan's Menu</h1>
         
-        {/* Render Kategori */}
         <div className="category-filter">
           {categories.map((cat) => (
             <button 
@@ -141,15 +131,13 @@ export default function MenuPage() {
           ))}
         </div>
 
-        {/* Grid Produk */}
         <div className="product-grid">
           {filteredMenus.length > 0 ? (
             filteredMenus.map((item) => {
-              // Cek apakah item ini sudah ada di dalam keranjang
               const cartItem = cart.find((c) => c.id_produk === item.id_produk);
               
               return (
-                <div className="product-card" key={item.id_produk}>
+                <div className="product-card" key={item.id_produk} onClick={() => openMenuCard(item)}>
                   {item.foto ? (
                     <img 
                       src={`http://localhost:5000/uploads/${encodeURIComponent(item.foto || '')}`} 
@@ -167,15 +155,14 @@ export default function MenuPage() {
                       <span className="product-price">{formatRupiah(item.harga)}</span>
                     </div>
 
-                    {/* Mengubah tombol tambah menjadi tombol dinamis (bisa + dan - jika sudah dimasukkan ke keranjang) */}
                     {cartItem ? (
-                      <div className="quantity-control">
+                      <div className="quantity-control" onClick={(e) => e.stopPropagation()}>
                         <button className="qty-btn" onClick={() => removeFromCart(item.id_produk)}>-</button>
                         <span className="qty-count">{cartItem.quantity}</span>
                         <button className="qty-btn" onClick={() => addToCart(item)}>+</button>
                       </div>
                     ) : (
-                      <button className="add-btn" onClick={() => addToCart(item)}>
+                      <button className="add-btn" onClick={(e) => { e.stopPropagation(); addToCart(item); }}>
                         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                           <circle cx="12" cy="12" r="10"></circle>
                           <line x1="12" y1="8" x2="12" y2="16"></line>
@@ -194,18 +181,38 @@ export default function MenuPage() {
           )}
         </div>
 
-        {/* Aksi Bawah */}
+        {selectedMenuItem && (
+          <div className="modal-overlay" onClick={closeMenuCard}>
+            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+              {selectedMenuItem.foto ? (
+                <img 
+                  src={`http://localhost:5000/uploads/${encodeURIComponent(selectedMenuItem.foto || '')}`} 
+                  alt={selectedMenuItem.nama_varian}
+                  className="modal-image"
+                  onError={(e) => { (e.target as HTMLImageElement).src = 'https://placehold.co/480x480?text=Gambar+Tidak+Ada'; }}
+                />
+              ) : (
+                <div className="modal-image-placeholder"><span>{selectedMenuItem.nama_varian}</span></div>
+              )}
+              <div className="modal-content">
+                <h2>{selectedMenuItem.nama_varian}</h2>
+                <p className="modal-description">{selectedMenuItem.deskripsi_topping || 'Deskripsi tidak tersedia.'}</p>
+                <span className="modal-price">{formatRupiah(selectedMenuItem.harga)}</span>
+                <button className="cancel-btn" onClick={closeMenuCard}>Batal</button>
+              </div>
+            </div>
+          </div>
+        )}
+
         <div className="bottom-actions">
           <button className="action-btn back-btn" onClick={() => navigate('/home')}>
             <img src={arrowBack} alt="Back" className="back-icon" /> Kembali
           </button>
           
-          {/* Tombol utama diubah fungsinya untuk memicu Checkout massal */}
           <button className="action-btn checkout-btn" onClick={handleCheckout}>
             Keranjang ({getTotalItems()}) — {formatRupiah(getTotalPrice())}
           </button>
 
-          {/* Tombol WhatsApp Baru di Samping Kanan Tombol Keranjang */}
           <button className="action-btn whatsapp-btn" onClick={handleWhatsAppChat}>
             WhatsApp
           </button>
