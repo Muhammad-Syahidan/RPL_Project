@@ -55,10 +55,21 @@ router.post('/', async (req, res) => {
     }
 });
 
-// 2. RUTE: Ambil Semua Transaksi (Untuk Tabel Admin)
+// 2. RUTE: Ambil Semua Transaksi (Untuk Tabel Admin) - UPDATED
 router.get('/all', async (req, res) => {
     try {
-        const [rows] = await db.execute("SELECT * FROM transaksi ORDER BY tanggal_waktu DESC");
+        // PENTING: p.nama_varian disesuaikan dengan database Anda
+        const sql = `
+            SELECT 
+                t.*, 
+                GROUP_CONCAT(CONCAT(d.jumlah_beli, 'x ', p.nama_varian) SEPARATOR ', ') AS produk_dipesan
+            FROM transaksi t
+            LEFT JOIN detail_transaksi d ON t.id_transaksi = d.id_transaksi
+            LEFT JOIN produk p ON d.id_produk = p.id_produk
+            GROUP BY t.id_transaksi
+            ORDER BY t.tanggal_waktu DESC
+        `;
+        const [rows] = await db.execute(sql);
         res.status(200).json(rows);
     } catch (err) {
         console.error("Gagal ambil semua data:", err);
