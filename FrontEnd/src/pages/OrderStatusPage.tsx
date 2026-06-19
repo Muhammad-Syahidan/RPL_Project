@@ -28,6 +28,7 @@ export default function OrderStatusPage() {
       setOrder({
         kode_pesanan: kode,
         status: 'Proses', // Ini data yang diambil dari DB
+        nomor_whatsapp: wa || waInput || '-',
       });
       setLoading(false);
     }, 1000);
